@@ -33,9 +33,11 @@
 
 .vs/
 .vs/*
+.git/
 .git/*
 packages/
 config.json
+EBWebView/
 EBWebView/*
 
 .claudiaideconfig
