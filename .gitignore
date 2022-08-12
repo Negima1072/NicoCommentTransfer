@@ -32,6 +32,8 @@
 *.app
 
 .vs/
-.git/
+.vs/*
+.git/*
 packages/
 config.json
+EBWebView/*
