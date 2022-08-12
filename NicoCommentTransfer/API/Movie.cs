@@ -139,7 +139,7 @@ namespace NicoCommentTransfer.API
                         cm.Add(new Ping("pf:0"));
                         cm.Add(new Ping("rf:0"));
                         string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson("https://nmsg.nicovideo.jp/api.json/", jsond);
+                        string jsonr = client.getReqWithJson("https://nvcomment.nicovideo.jp/legacy/api.json/thread", jsond);
                         lastyomikomijson = jsonr;
                         Console.WriteLine(jsonr);
                         Console.WriteLine("k");
@@ -168,7 +168,7 @@ namespace NicoCommentTransfer.API
                         cm.Add(new Ping("pf:1"));
                         cm.Add(new Ping("rf:0"));
                         string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson("https://nmsg.nicovideo.jp/api.json/", jsond);
+                        string jsonr = client.getReqWithJson("https://nvcomment.nicovideo.jp/legacy/api.json/thread", jsond);
                         lastyomikomijson = jsonr;
                         Console.WriteLine(jsonr);
                         List<Chat> chats = DeserializeStringToChatsList(jsonr);
@@ -187,7 +187,7 @@ namespace NicoCommentTransfer.API
                         cm.Add(new Ping("pf:0"));
                         cm.Add(new Ping("rf:0"));
                         string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson("https://nmsg.nicovideo.jp/api.json/", jsond);
+                        string jsonr = client.getReqWithJson("https://nvcomment.nicovideo.jp/legacy/api.json/thread", jsond);
                         lastyomikomijson = jsonr;
                         return ConvertChatListToCommentDataList(DeserializeStringToChatsList(jsonr));
                     }
@@ -211,7 +211,7 @@ namespace NicoCommentTransfer.API
                         cm.Add(new Ping("pf:1"));
                         cm.Add(new Ping("rf:0"));
                         string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson("https://nmsg.nicovideo.jp/api.json/", jsond);
+                        string jsonr = client.getReqWithJson("https://nvcomment.nicovideo.jp/legacy/api.json/thread", jsond);
                         lastyomikomijson = jsonr;
                         return ConvertChatListToCommentDataList(DeserializeStringToChatsList(jsonr));
                     }
@@ -231,7 +231,7 @@ namespace NicoCommentTransfer.API
                         cm.Add(new Ping("pf:1"));
                         cm.Add(new Ping("rf:0"));
                         string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson("https://nmsg.nicovideo.jp/api.json/", jsond);
+                        string jsonr = client.getReqWithJson("https://nvcomment.nicovideo.jp/legacy/api.json/thread", jsond);
                         lastyomikomijson = jsonr;
                         return ConvertChatListToCommentDataList(DeserializeStringToChatsList(jsonr));
                     }
@@ -245,7 +245,7 @@ namespace NicoCommentTransfer.API
                         cm.Add(new Ping("pf:0"));
                         cm.Add(new Ping("rf:0"));
                         string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson("https://nmsg.nicovideo.jp/api.json/", jsond);
+                        string jsonr = client.getReqWithJson("https://nvcomment.nicovideo.jp/legacy/api.json/thread", jsond);
                         lastyomikomijson = jsonr;
                         return ConvertChatListToCommentDataList(DeserializeStringToChatsList(jsonr));
                     }
@@ -289,7 +289,7 @@ namespace NicoCommentTransfer.API
                         cm.Add(new Ping("pf:1"));
                         cm.Add(new Ping("rf:0"));
                         string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson("https://nmsg.nicovideo.jp/api.json/", jsond);
+                        string jsonr = client.getReqWithJson("https://nvcomment.nicovideo.jp/legacy/api.json/thread", jsond);
                         lastyomikomijson = jsonr;
                         return ConvertChatListToCommentDataList(DeserializeStringToChatsList(jsonr));
                     }
@@ -304,7 +304,7 @@ namespace NicoCommentTransfer.API
                         cm.Add(new Ping("pf:0"));
                         cm.Add(new Ping("rf:0"));
                         string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson("https://nmsg.nicovideo.jp/api.json/", jsond);
+                        string jsonr = client.getReqWithJson("https://nvcomment.nicovideo.jp/legacy/api.json/thread", jsond);
                         lastyomikomijson = jsonr;
                         return ConvertChatListToCommentDataList(DeserializeStringToChatsList(jsonr));
                     }
@@ -329,7 +329,7 @@ namespace NicoCommentTransfer.API
                         cm.Add(new Ping("pf:1"));
                         cm.Add(new Ping("rf:0"));
                         string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson("https://nmsg.nicovideo.jp/api.json/", jsond);
+                        string jsonr = client.getReqWithJson("https://nvcomment.nicovideo.jp/legacy/api.json/thread", jsond);
                         lastyomikomijson = jsonr;
                         return ConvertChatListToCommentDataList(DeserializeStringToChatsList(jsonr));
                     }
@@ -350,7 +350,7 @@ namespace NicoCommentTransfer.API
                         cm.Add(new Ping("pf:1"));
                         cm.Add(new Ping("rf:0"));
                         string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson("https://nmsg.nicovideo.jp/api.json/", jsond);
+                        string jsonr = client.getReqWithJson("https://nvcomment.nicovideo.jp/legacy/api.json/thread", jsond);
                         lastyomikomijson = jsonr;
                         return ConvertChatListToCommentDataList(DeserializeStringToChatsList(jsonr));
                     }
@@ -365,7 +365,7 @@ namespace NicoCommentTransfer.API
                         cm.Add(new Ping("pf:0"));
                         cm.Add(new Ping("rf:0"));
                         string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson("https://nmsg.nicovideo.jp/api.json/", jsond);
+                        string jsonr = client.getReqWithJson("https://nvcomment.nicovideo.jp/legacy/api.json/thread", jsond);
                         lastyomikomijson = jsonr;
                         return ConvertChatListToCommentDataList(DeserializeStringToChatsList(jsonr));
                     }
@@ -446,7 +446,7 @@ namespace NicoCommentTransfer.API
                 }
                 cm.Add(new Ping("rf:0"));
                 string jsond = JsonConvert.SerializeObject(cm);
-                string jsonr = client.getReqWithJson("https://nmsg.nicovideo.jp/api.json/", jsond);
+                string jsonr = client.getReqWithJson("https://nvcomment.nicovideo.jp/legacy/api.json/thread", jsond);
                 lastyomikomijson = jsonr;
                 return jsonr;
             }catch(Exception e)
@@ -474,7 +474,7 @@ namespace NicoCommentTransfer.API
                         cm.Add(new Ping("pf:0"));
                         cm.Add(new Ping("rf:0"));
                         string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson("https://nmsg.nicovideo.jp/api.json/", jsond);
+                        string jsonr = client.getReqWithJson("https://nvcomment.nicovideo.jp/legacy/api.json/thread", jsond);
                         lastyomikomijson = jsonr;
                         Console.WriteLine(jsonr);
                         Console.WriteLine("k");
@@ -503,7 +503,7 @@ namespace NicoCommentTransfer.API
                         cm.Add(new Ping("pf:1"));
                         cm.Add(new Ping("rf:0"));
                         string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson("https://nmsg.nicovideo.jp/api.json/", jsond);
+                        string jsonr = client.getReqWithJson("https://nvcomment.nicovideo.jp/legacy/api.json/thread", jsond);
                         lastyomikomijson = jsonr;
                         return DeserializeStringToChatsList(jsonr);
                     }
@@ -517,7 +517,7 @@ namespace NicoCommentTransfer.API
                         cm.Add(new Ping("pf:0"));
                         cm.Add(new Ping("rf:0"));
                         string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson("https://nmsg.nicovideo.jp/api.json/", jsond);
+                        string jsonr = client.getReqWithJson("https://nvcomment.nicovideo.jp/legacy/api.json/thread", jsond);
                         lastyomikomijson = jsonr;
                         return DeserializeStringToChatsList(jsonr);
                     }
@@ -541,7 +541,7 @@ namespace NicoCommentTransfer.API
                         cm.Add(new Ping("pf:1"));
                         cm.Add(new Ping("rf:0"));
                         string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson("https://nmsg.nicovideo.jp/api.json/", jsond);
+                        string jsonr = client.getReqWithJson("https://nvcomment.nicovideo.jp/legacy/api.json/thread", jsond);
                         lastyomikomijson = jsonr;
                         return DeserializeStringToChatsList(jsonr);
                     }
@@ -561,7 +561,7 @@ namespace NicoCommentTransfer.API
                         cm.Add(new Ping("pf:1"));
                         cm.Add(new Ping("rf:0"));
                         string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson("https://nmsg.nicovideo.jp/api.json/", jsond);
+                        string jsonr = client.getReqWithJson("https://nvcomment.nicovideo.jp/legacy/api.json/thread", jsond);
                         lastyomikomijson = jsonr;
                         return DeserializeStringToChatsList(jsonr);
                     }
@@ -575,7 +575,7 @@ namespace NicoCommentTransfer.API
                         cm.Add(new Ping("pf:0"));
                         cm.Add(new Ping("rf:0"));
                         string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson("https://nmsg.nicovideo.jp/api.json/", jsond);
+                        string jsonr = client.getReqWithJson("https://nvcomment.nicovideo.jp/legacy/api.json/thread", jsond);
                         lastyomikomijson = jsonr;
                         return DeserializeStringToChatsList(jsonr);
                     }
@@ -656,7 +656,7 @@ namespace NicoCommentTransfer.API
                     cm.Add(new Ping("pf:55"));
                     cm.Add(new Ping("rf:9"));
                     string jsond = JsonConvert.SerializeObject(cm);
-                    string jsonr = client.getReqWithJson("https://nmsg.nicovideo.jp/api.json/", jsond);
+                    string jsonr = client.getReqWithJson("https://nvcomment.nicovideo.jp/legacy/api.json/thread", jsond);
                     Console.WriteLine(jsonr);
                     List<JObject> lrt = DeserializeStringToAnyList(jsonr, "nicoru_result");
                     return int.Parse(lrt[0]["status"].ToString());
@@ -695,7 +695,7 @@ namespace NicoCommentTransfer.API
                         cm.Add(new Ping("pf:1"));
                         cm.Add(new Ping("rf:0"));
                         string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson("https://nmsg.nicovideo.jp/api.json/", jsond);
+                        string jsonr = client.getReqWithJson("https://nvcomment.nicovideo.jp/legacy/api.json/thread", jsond);
                         lrt = DeserializeStringToResultThreadsList(jsonr);
                     }
                     else if (label == "owner")
@@ -708,7 +708,7 @@ namespace NicoCommentTransfer.API
                         cm.Add(new Ping("pf:0"));
                         cm.Add(new Ping("rf:0"));
                         string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson("https://nmsg.nicovideo.jp/api.json/", jsond);
+                        string jsonr = client.getReqWithJson("https://nvcomment.nicovideo.jp/legacy/api.json/thread", jsond);
                         lrt = DeserializeStringToResultThreadsList(jsonr);
                     }
                     else
@@ -731,7 +731,7 @@ namespace NicoCommentTransfer.API
                         cm.Add(new Ping("pf:1"));
                         cm.Add(new Ping("rf:0"));
                         string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson("https://nmsg.nicovideo.jp/api.json/", jsond);
+                        string jsonr = client.getReqWithJson("https://nvcomment.nicovideo.jp/legacy/api.json/thread", jsond);
                         lrt = DeserializeStringToResultThreadsList(jsonr);
                     }
                     else if (label == "community")
@@ -750,7 +750,7 @@ namespace NicoCommentTransfer.API
                         cm.Add(new Ping("pf:1"));
                         cm.Add(new Ping("rf:0"));
                         string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson("https://nmsg.nicovideo.jp/api.json/", jsond);
+                        string jsonr = client.getReqWithJson("https://nvcomment.nicovideo.jp/legacy/api.json/thread", jsond);
                         lrt = DeserializeStringToResultThreadsList(jsonr);
                     }
                     else if (movietype == "Community" && label == "owner")
@@ -763,7 +763,7 @@ namespace NicoCommentTransfer.API
                         cm.Add(new Ping("pf:0"));
                         cm.Add(new Ping("rf:0"));
                         string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson("https://nmsg.nicovideo.jp/api.json/", jsond);
+                        string jsonr = client.getReqWithJson("https://nvcomment.nicovideo.jp/legacy/api.json/thread", jsond);
                         lrt = DeserializeStringToResultThreadsList(jsonr);
                     }
                     else
@@ -923,7 +923,7 @@ namespace NicoCommentTransfer.API
                     requests.Add(JObject.Parse(JsonConvert.SerializeObject(new Ping("pf:195"), Formatting.None)));
                     requests.Add(JObject.Parse(JsonConvert.SerializeObject(new Ping("rf:1"), Formatting.None)));
                     string jsons = JsonConvert.SerializeObject(requests, Formatting.None);
-                    string res = client.getReqWithJson("https://nmsg.nicovideo.jp/api.json/", jsons);
+                    string res = client.getReqWithJson("https://nvcomment.nicovideo.jp/legacy/api.json/thread", jsons);
                     int restatus = getUpdateCommentResponseStatus(res);
                     if(restatus == 0)
                     {
@@ -955,7 +955,7 @@ namespace NicoCommentTransfer.API
                     saisho:
                     System.Threading.Thread.Sleep(5 * 1000);
                     string req = makeSendCommentRequest(client, t.Id.ToString(), cd.TimePos, cd.Command, cd.Comment, ticket);
-                    string res = client.getReqWithJson("https://nmsg.nicovideo.jp/api.json/", req);
+                    string res = client.getReqWithJson("https://nvcomment.nicovideo.jp/legacy/api.json/thread", req);
                     int restatus = getSendCommentResponseStatus(res);
                     Data.Video.Count.Comment = getSendCommentResponseNo(res);
                     if (numrestat <= 3) {
@@ -988,7 +988,7 @@ namespace NicoCommentTransfer.API
                         saisho2:
                         System.Threading.Thread.Sleep(5 * 1000);
                         string req = makeSendCommentRequest(client, t.Id.ToString(), cd.TimePos, cd.Command, cd.Comment, ticket);
-                        string res = client.getReqWithJson("https://nmsg.nicovideo.jp/api.json/", req);
+                        string res = client.getReqWithJson("https://nvcomment.nicovideo.jp/legacy/api.json/thread", req);
                         int restatus = getSendCommentResponseStatus(res);
                         Data.Video.Count.Comment = getSendCommentResponseNo(res);
                         if (numrestat <= 3)
@@ -1022,7 +1022,7 @@ namespace NicoCommentTransfer.API
                         saisho3:
                         System.Threading.Thread.Sleep(5 * 1000);
                         string req = makeSendCommentRequest(client, t.Id.ToString(), cd.TimePos, cd.Command, cd.Comment, ticket);
-                        string res = client.getReqWithJson("https://nmsg.nicovideo.jp/api.json/", req);
+                        string res = client.getReqWithJson("https://nvcomment.nicovideo.jp/legacy/api.json/thread", req);
                         int restatus = getSendCommentResponseStatus(res);
                         Data.Video.Count.Comment = getSendCommentResponseNo(res);
                         if (numrestat <= 3)
