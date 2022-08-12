@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Windows;
@@ -75,12 +76,13 @@ namespace NicoCommentTransfer.API
                 var parser = new HtmlParser();
                 var doc = parser.ParseDocument(res);
                 JObject jsonObj = JObject.Parse(doc.GetElementById("CommonHeader").GetAttribute("data-common-header"));
+                Console.WriteLine(jsonObj.ToString());
                 isLogin = bool.Parse(jsonObj["initConfig"]["user"]["isLogin"].ToString());
                 if (bool.Parse(jsonObj["initConfig"]["user"]["isLogin"].ToString()))
                 {
                     userID = jsonObj["initConfig"]["user"]["id"].ToString();
                     isPremium = bool.Parse(jsonObj["initConfig"]["user"]["isPremium"].ToString());
-                    imgUrl = jsonObj["initConfig"]["user"]["iconUrl"].ToString();
+                    imgUrl = Regex.Unescape(jsonObj["initConfig"]["user"]["iconUrl"].ToString());
                     userName = jsonObj["initConfig"]["user"]["nickname"].ToString();
                     return true;
                 }
@@ -101,9 +103,9 @@ namespace NicoCommentTransfer.API
                 Assembly assembly = Assembly.GetExecutingAssembly();
                 AssemblyName asmName = assembly.GetName();
                 string version = asmName.Version.ToString();
-                string res = getReq("https://ngmsrv.com/api/nct/version.json", "", "GET");
-                string newversion = (string)JsonConvert.DeserializeObject<JObject>(res)["data"]["version"];
-                string newversionstr = (string)JsonConvert.DeserializeObject<JObject>(res)["data"]["str"];
+                string res = getReq("https://api.github.com/repos/Negima1072/NicoCommentTransfer/releases/latest", "", "GET");
+                string newversion = ((string)JsonConvert.DeserializeObject<JObject>(res)["name"]).Substring(1);
+                string newversionstr = (string)JsonConvert.DeserializeObject<JObject>(res)["body"];
                 if (version != newversion)
                 {
                     MessageBox.Show("使用中のバージョンが最新ではありません。配布サイトから更新をしてください。\n\n最新バージョン:" + newversion + "\n\n更新内容: " + newversionstr, "VersionChecker", MessageBoxButton.OK, MessageBoxImage.Information);

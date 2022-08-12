@@ -28,28 +28,28 @@ namespace NicoCommentTransfer
         public bool isPremium = false;
         public bool isLogin = false;
         public NicoOAuth oauth;
-        public LoginOAuth()
+        public LoginOAuth(bool newed = false)
         {
             InitializeComponent();
-            InitializeAsync();
+            InitializeAsync(newed);
         }
 
-        private async void InitializeAsync()
+        private async void InitializeAsync(bool newed = false)
         {
             await loginView.EnsureCoreWebView2Async(null);
+            if (newed) loginView.CoreWebView2.CookieManager.DeleteAllCookies();
             loginView.CoreWebView2.Settings.UserAgent = "NicoCommentTransfer@Negima1072";
-            loginView.CoreWebView2.NavigationStarting += new EventHandler<Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs>(loginViewCore_SourceUpdated);
+            loginView.CoreWebView2.NavigationCompleted += new EventHandler<Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs>(loginViewCore_SourceUpdated);
             loginView.CoreWebView2.Navigate("https://nct.nvcomment.net/api/v1/login");
         }
 
-        private async void loginViewCore_SourceUpdated(object sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs e)
+        private async void loginViewCore_SourceUpdated(object sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs e)
         {
-            if(e.Uri.StartsWith("https://nct.nvcomment.net/api/v1/redirect"))
+            if(loginView.CoreWebView2.Source.StartsWith("https://nct.nvcomment.net/api/v1/redirect"))
             {
                 List<Microsoft.Web.WebView2.Core.CoreWebView2Cookie> cookies = await loginView.CoreWebView2.CookieManager.GetCookiesAsync("https://nicovideo.jp");
                 cookies.ForEach((c) =>
                 {
-                    Console.WriteLine(c.Value);
                     if (c.Name == "user_session")
                     {
                         user_session = c.Value;
@@ -58,10 +58,15 @@ namespace NicoCommentTransfer
                     else if (c.Name == "user_session_secure") user_session_secure = c.Value;
                 });
                 auth_token = await loginView.ExecuteScriptAsync("document.documentElement.outerText");
+                Console.WriteLine("1");
                 oauth = new NicoOAuth(auth_token);
+                Console.WriteLine("1");
                 UserOpenIDInfo info = oauth.getOwnInfo();
+                Console.WriteLine("1");
                 userid = info.Sub;
+                Console.WriteLine("1");
                 isPremium = (oauth.getOwnPremium().Data.Type == "premium");
+                isLogin = true;
                 this.Close();
             }
         }

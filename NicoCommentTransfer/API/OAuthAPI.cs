@@ -12,49 +12,57 @@ namespace NicoCommentTransfer.API
         public string auth_token = "";
         public NicoOAuth(string auth_token)
         {
-            this.auth_token = auth_token;
+            this.auth_token = auth_token.Replace("\"", "");
         }
 
         private string getRequest(string URI, string parameters, string type = "POST", CookieContainer coookie = null, Dictionary<string, string> header = null, string referer = null, string accept = "*/*")
         {
-            header.Add("Authorization", "Bearer " + auth_token);
-            HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(URI);
-            req.Accept = accept;
-            req.Method = type;
-            req.KeepAlive = true;
-            req.ContentType = "application/x-www-form-urlencoded";
-            req.UserAgent = "NicoCommentTransfer@Negima1072";
-            if (referer != null)
+            reqStart:
+            try
             {
-                req.Referer = referer;
-            }
-            if (header != null)
-            {
-                foreach (KeyValuePair<string, string> k in header)
+                HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(URI);
+                req.Accept = accept;
+                req.Method = type;
+                req.KeepAlive = true;
+                req.ContentType = "application/x-www-form-urlencoded";
+                req.UserAgent = "NicoCommentTransfer@Negima1072";
+                if (referer != null)
                 {
-                    req.Headers.Add(k.Key, k.Value);
+                    req.Referer = referer;
                 }
+                if (header != null)
+                {
+                    foreach (KeyValuePair<string, string> k in header)
+                    {
+                        req.Headers.Add(k.Key, k.Value);
+                    }
+                }
+                req.Headers.Add("Authorization", "Bearer " + auth_token);
+                byte[] postDataBytes = System.Text.Encoding.ASCII.GetBytes(parameters);
+                req.ContentLength = postDataBytes.Length;
+                if (type == "POST")
+                {
+                    Stream rdat = req.GetRequestStream();
+                    StreamWriter sw = new StreamWriter(rdat);
+                    sw.Write(parameters);
+                    sw.Close();
+                    rdat.Close();
+                }
+                Console.WriteLine(req.Headers.ToString());
+                HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+                Stream data = resp.GetResponseStream();
+                StreamReader reader = new StreamReader(data, Encoding.UTF8);
+                string s = reader.ReadToEnd();
+                data.Close();
+                resp.Close();
+                reader.Close();
+                return s;
             }
-            req.Headers.Add("Authorization", "Bearer " + auth_token);
-            byte[] postDataBytes = System.Text.Encoding.ASCII.GetBytes(parameters);
-            req.ContentLength = postDataBytes.Length;
-            if (type == "POST")
+            catch (WebException e)
             {
-                Stream rdat = req.GetRequestStream();
-                StreamWriter sw = new StreamWriter(rdat);
-                sw.Write(parameters);
-                sw.Close();
-                rdat.Close();
+                refresh();
+                goto reqStart;
             }
-            Console.WriteLine(req.Headers.ToString());
-            HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
-            Stream data = resp.GetResponseStream();
-            StreamReader reader = new StreamReader(data, Encoding.UTF8);
-            string s = reader.ReadToEnd();
-            data.Close();
-            resp.Close();
-            reader.Close();
-            return s;
         }
 
         public UserOpenIDInfo getOwnInfo()

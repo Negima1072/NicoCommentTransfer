@@ -34,6 +34,7 @@ namespace NicoCommentTransfer
         public NicoVideo bVideoData = new NicoVideo();
         public NicoVideo aVideoData = new NicoVideo();
         public Client client;
+        public NicoOAuth oauth;
         Config config;
         public MainWindow()
         {
@@ -75,6 +76,9 @@ namespace NicoCommentTransfer
                     config.CookieExpires = login.expiresunixtime;
                     config.userID = login.userid;
                     config.isPremium = login.isPremium;
+                    config.authToken = login.auth_token;
+                    oauth = login.oauth;
+                    client.LoginCookie(login.user_session, login.user_session_secure);
                     MessageBox.Show("ログインしました。", "Login", MessageBoxButton.OK, MessageBoxImage.Information);
                     LoginAtoShitaniUtusuShori();
                 }
@@ -107,6 +111,9 @@ namespace NicoCommentTransfer
                         config.CookieExpires = login.expiresunixtime;
                         config.userID = login.userid;
                         config.isPremium = login.isPremium;
+                        config.authToken = login.auth_token;
+                        oauth = login.oauth;
+                        client.LoginCookie(login.user_session, login.user_session_secure);
                         MessageBox.Show("ログインしました。", "Login", MessageBoxButton.OK, MessageBoxImage.Information);
                         LoginAtoShitaniUtusuShori();
                     }
@@ -123,6 +130,7 @@ namespace NicoCommentTransfer
         {
             client.cookieExpires = config.CookieExpires;
             BitmapImage bmi = new BitmapImage(new Uri(client.imgUrl));
+            Console.WriteLine("3");
             UserImage.Source = bmi;
             UserNameTB.Text = "Name: "+client.userName;
             UserIDTB.Text = "ID: " + client.userID;
@@ -406,7 +414,7 @@ namespace NicoCommentTransfer
         private void ReLoginBtnClick(object sender, RoutedEventArgs e)
         {
             config = new Config(config);
-            LoginOAuth login = new LoginOAuth();
+            LoginOAuth login = new LoginOAuth(true);
             login.Owner = this;
             login.ShowDialog();
             if (login.isLogin)
@@ -417,6 +425,8 @@ namespace NicoCommentTransfer
                 config.CookieExpires = login.expiresunixtime;
                 config.userID = login.userid;
                 config.isPremium = login.isPremium;
+                config.authToken = login.auth_token;
+                client.LoginCookie(login.user_session, login.user_session_secure);
                 MessageBox.Show("ログインしました。", "Login", MessageBoxButton.OK, MessageBoxImage.Information);
                 LoginAtoShitaniUtusuShori();
             }
