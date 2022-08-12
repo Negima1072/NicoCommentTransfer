@@ -37,3 +37,5 @@
 packages/
 config.json
 EBWebView/*
+
+.claudiaideconfig
