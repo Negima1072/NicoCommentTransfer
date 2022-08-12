@@ -1,0 +1,80 @@
+﻿<Window x:Class="NicoCommentTransfer.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NicoCommentTransfer" xmlns:usercontrols="clr-namespace:NicoCommentTransfer.UserControls"
+        mc:Ignorable="d" Closed="WindowClosed"
+        Title="Login" Height="230" Width="360" ResizeMode="NoResize">
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}" x:Key="ImageButtonStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <ContentPresenter/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <ComboBox x:Name="LoginModeSelectCB" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="200" SelectedIndex="0">
+            <ComboBoxItem Content="Email/Pssswordでログイン"/>
+            <ComboBoxItem Content="Chromeでログイン"/>
+            <ComboBoxItem Content="Firefoxでログイン"/>
+        </ComboBox>
+        <Grid x:Name="EmailLoginGrid">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=LoginModeSelectCB, Path=SelectedIndex}" Value="0">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <TextBlock HorizontalAlignment="Left" Margin="10,37,0,0" Padding="2,1" TextWrapping="Wrap" Text="Email" VerticalAlignment="Top" Height="23" Width="80" FontSize="14"/>
+            <usercontrols:TextBoxV x:Name="EmailTBox" HorizontalAlignment="Left" Height="23" Margin="95,37,0,0" VerticalAlignment="Top" Width="238" FontSize="14" BackText="yellow@example.com"/>
+            <TextBlock HorizontalAlignment="Left" Margin="10,65,0,0" Padding="2,1" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Height="23" Width="80" FontSize="14"/>
+            <PasswordBox x:Name="PassTBox" HorizontalAlignment="Left" Height="23" Margin="95,65,0,0" VerticalAlignment="Top" Width="238" FontSize="14"/>
+            <Button Click="EmailLoginBtnClick" Content="Login" HorizontalAlignment="Left" Margin="258,93,0,0" VerticalAlignment="Top" Width="75"/>
+        </Grid>
+        <Grid x:Name="ChromeLoginGrid">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=LoginModeSelectCB, Path=SelectedIndex}" Value="1">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <Button Click="ChromeLoginBtnClick" Content="ChromeからLogin" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top" Width="323" Height="75" FontSize="14"/>
+        </Grid>
+        <Grid x:Name="FirefoxLoginGrid">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=LoginModeSelectCB, Path=SelectedIndex}" Value="2">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <Button Click="FirefoxLoginBtnClick" Content="FirefoxからLogin" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top" Width="323" Height="75" FontSize="14"/>
+        </Grid>
+        <Button x:Name="OKBtn" Content="OK" HorizontalAlignment="Right" Margin="0,0,9.667,10" VerticalAlignment="Bottom" Width="75" Click="OKBtnClick" IsEnabled="False"/>
+        <Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,124,0,0" Width="50" Height="50" BorderBrush="AliceBlue" BorderThickness="1">
+            <Button Style="{StaticResource ImageButtonStyle}" Click="ImageButton_Click">
+                <Image x:Name="UserImage"/>
+            </Button>
+        </Border>
+        <TextBlock x:Name="UserNameTB" HorizontalAlignment="Left" Margin="65,124,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Width="192"/>
+        <TextBlock x:Name="UserIDTB" HorizontalAlignment="Left" Margin="65,140,0,0" TextWrapping="Wrap" Text="ID" VerticalAlignment="Top" Width="97"/>
+        <TextBlock x:Name="SessionExpiresTB" HorizontalAlignment="Left" Margin="65,156,0,0" TextWrapping="Wrap" Text="Expires" VerticalAlignment="Top" Width="192"/>
+        <TextBlock x:Name="UserPremium" HorizontalAlignment="Left" Margin="167,140,0,0" TextWrapping="Wrap" Text="Premium" VerticalAlignment="Top" Width="90"/>
+    </Grid>
+</Window>

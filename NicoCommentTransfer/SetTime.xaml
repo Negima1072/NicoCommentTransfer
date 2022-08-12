@@ -1,0 +1,14 @@
+﻿<Window x:Class="NicoCommentTransfer.SetTime"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NicoCommentTransfer" xmlns:usercontrols="clr-namespace:NicoCommentTransfer.UserControls"
+        mc:Ignorable="d"
+        Title="SetTime" Height="98.666" Width="248.667" ResizeMode="NoResize">
+    <Grid>
+        <Button Click="CancelBtnClick" Content="キャンセル" HorizontalAlignment="Left" Margin="156,0,0,9.667" VerticalAlignment="Bottom" Width="75"/>
+        <Button Click="OKBtnClick" Content="OK" HorizontalAlignment="Left" Margin="76,0,0,9.667" VerticalAlignment="Bottom" Width="75"/>
+        <usercontrols:TextBoxV x:Name="TimeTB" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="23" FontSize="14" BackText="00:00.00" Margin="21,0,0,37.667" Width="181"/>
+    </Grid>
+</Window>

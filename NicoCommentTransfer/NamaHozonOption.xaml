@@ -1,0 +1,19 @@
+﻿<Window xmlns:UserControls="clr-namespace:NicoCommentTransfer.UserControls"  x:Class="NicoCommentTransfer.NamaHozonOption"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NicoCommentTransfer"
+        mc:Ignorable="d"
+        Title="NamaHozonOption" Height="199.561" Width="292.124">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="動画ID" VerticalAlignment="Top" Height="20" Width="55" FontSize="15"/>
+        <UserControls:TextBoxV x:Name="dougaID" HorizontalAlignment="Left" Height="20" Margin="70,10,0,0" VerticalAlignment="Top" Width="187" BackText="sm9"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,35,0,0" TextWrapping="Wrap" Text="種類" VerticalAlignment="Top" Height="20" Width="55" FontSize="15"/>
+        <CheckBox x:Name="defaultC" Content="通常コメント" HorizontalAlignment="Left" Margin="70,35,0,0" VerticalAlignment="Top" Height="20" Width="187" FontSize="15" IsChecked="True"/>
+        <CheckBox x:Name="toukouC" Content="投稿者コメント" HorizontalAlignment="Left" Margin="70,55,0,0" VerticalAlignment="Top" Height="20" Width="187" FontSize="15" IsChecked="True"/>
+        <CheckBox x:Name="communityC" Content="コミュニティーコメント" HorizontalAlignment="Left" Margin="70,75,0,0" VerticalAlignment="Top" Height="20" Width="187" FontSize="15" IsChecked="False"/>
+        <CheckBox x:Name="kantanC" Content="かんたんコメント" HorizontalAlignment="Left" Margin="70,95,0,0" VerticalAlignment="Top" Height="20" Width="187" FontSize="15" IsChecked="False"/>
+        <Button Content="実行" Click="jikkou" HorizontalAlignment="Left" Margin="182,120,0,0" VerticalAlignment="Top" Width="75"/>
+    </Grid>
+</Window>
