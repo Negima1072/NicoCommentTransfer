@@ -89,7 +89,7 @@
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn Header="＼" Binding="{Binding isChecked}"/>
                 <DataGridTextColumn Header="No" Width="50" Binding="{Binding Number}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="VposMS" Width="55" Binding="{Binding Time}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Vpos" Width="55" Binding="{Binding Time}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Command" Width="115" Binding="{Binding Command}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Body" Width="200" Binding="{Binding Comment}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="UserID" Width="80" Binding="{Binding UserName}" IsReadOnly="True"/>
