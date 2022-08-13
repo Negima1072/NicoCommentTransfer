@@ -27,7 +27,7 @@ namespace NicoCommentTransfer
     /// <summary>
     /// MainWindow.xaml の相互作用ロジック
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow2 : Window
     {
         public CommentDataList bcommList;
         public CommentDataList acommList;
@@ -36,7 +36,7 @@ namespace NicoCommentTransfer
         public Client client;
         public NicoOAuth oauth;
         Config config;
-        public MainWindow()
+        public MainWindow2()
         {
             //Config
             if (!File.Exists("config.json"))
@@ -55,8 +55,8 @@ namespace NicoCommentTransfer
             InitializeComponent();
             bcommList = new CommentDataList();
             acommList = new CommentDataList();
-            bcommView.ItemsSource = bcommList.Data;
-            acommView.ItemsSource = acommList.Data;
+            bcommView.DataContext = bcommList.Data;
+            acommView.DataContext = acommList.Data;
             bcommList.ItemPropertyChanged += new BoolEventHandler(changeCheckedListB);
             ContentRendered += (s, e) => { WindowContentRendered(s, e); };
         }

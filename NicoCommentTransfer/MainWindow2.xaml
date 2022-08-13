@@ -1,4 +1,4 @@
-﻿<Window x:Class="NicoCommentTransfer.MainWindow"
+﻿<Window x:Class="NicoCommentTransfer.MainWindow2"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,7 +8,7 @@
         Closing="WindowClosing"
         Title="NicoCommentTransfer" Height="850" Width="1200" MinWidth="1100" MaxWidth="1200" MinHeight="850" Icon="icon.ico">
     <Window.Resources>
-        <Style x:Key="ListViewItemStyle" TargetType="DataGridRow">
+        <Style x:Key="ListViewItemStyle" TargetType="ListViewItem">
             <Setter Property="BorderBrush" Value="Gray"/>
             <Setter Property="BorderThickness" Value="0,0,0,1"/>
             <Setter Property="IsSelected" Value="{Binding IsSelected}" />
@@ -60,7 +60,7 @@
         <Button Click="GetMovieCommentBtnClick" Content="取得" HorizontalAlignment="Left" Margin="210,51,0,0" VerticalAlignment="Top" Width="28" Height="23"/>
         <Button Content="リストクリア" HorizontalAlignment="Left" Margin="434,51,0,0" VerticalAlignment="Top" Width="57" Height="23" Click="BListClearBtnClick"/>
         <Button Content="ファイル読み込み" HorizontalAlignment="Left" Margin="496,51,0,0" VerticalAlignment="Top" Width="85" Height="23" Click="LoadByFileBtnClick"/>
-        <DataGrid x:Name="bcommView" AutoGenerateColumns="False" ItemContainerStyle="{DynamicResource ListViewItemStyle}" VirtualizingPanel.ScrollUnit="Pixel" Padding="0" HorizontalAlignment="Left" Height="639" Margin="10,79,0,0" VerticalAlignment="Top" Width="572" SelectionMode="Extended">
+        <DataGrid x:Name="bcommView" ItemsSource="{Binding}" ItemContainerStyle="{DynamicResource ListViewItemStyle}" VirtualizingPanel.ScrollUnit="Pixel" Padding="0" HorizontalAlignment="Left" Height="639" Margin="10,79,0,0" VerticalAlignment="Top" Width="572" SelectionMode="Extended">
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="選択コメントのユーザーIDをコピー" Click="CopySelectedCommentUserID"/>
@@ -87,18 +87,18 @@
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.Columns>
-                <DataGridCheckBoxColumn Header="＼" Binding="{Binding isChecked}"/>
-                <DataGridTextColumn Header="No" Width="50" Binding="{Binding Number}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="VposMS" Width="55" Binding="{Binding Time}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Command" Width="115" Binding="{Binding Command}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Body" Width="200" Binding="{Binding Comment}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="UserID" Width="80" Binding="{Binding UserName}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="isPremium" Width="50"  IsReadOnly="True"/>
-                <DataGridTextColumn Header="Score" Width="50" Binding="{Binding Score}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Nicoru" Width="30" Binding="{Binding Nicoru}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Posted" Width="100" Binding="{Binding date_str}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Source" Width="50" IsReadOnly="True"/>
-                <DataGridTextColumn Header="ID" Width="100"  IsReadOnly="True"/>
+                <DataGridCheckBoxColumn Header="＼" Binding="{Binding Path=isChecked}"/>
+                <DataGridTextColumn Header="No" Width="50" Binding="{Binding Path=Number}"/>
+                <DataGridTextColumn Header="VposMS" Width="55" Binding="{Binding Path=Time}"/>
+                <DataGridTextColumn Header="Command" Width="115" Binding="{Binding Path=Command}"/>
+                <DataGridTextColumn Header="Body" Width="200" Binding="{Binding Path=Comment}"/>
+                <DataGridTextColumn Header="UserID" Width="80" Binding="{Binding Path=UserName}"/>
+                <DataGridTextColumn Header="isPremium" Width="50" />
+                <DataGridTextColumn Header="Score" Width="50" />
+                <DataGridTextColumn Header="Nicoru" Width="30" Binding="{Binding Path=Nicoru}"/>
+                <DataGridTextColumn Header="Posted" Width="100" Binding="{Binding Path=date_str}"/>
+                <DataGridTextColumn Header="Source" Width="50" Binding="{Binding Path=Score}"/>
+                <DataGridTextColumn Header="ID" Width="100" />
             </DataGrid.Columns>
         </DataGrid>
         <TextBlock HorizontalAlignment="Left" Margin="337,717,0,0" TextWrapping="Wrap" Text="チ:" VerticalAlignment="Top" Width="15" TextAlignment="Right" Padding="0, 0, 0, 0"/>
@@ -107,8 +107,8 @@
         <TextBlock x:Name="bcommViewTextBox" HorizontalAlignment="Left" Margin="495,717,0,0" TextWrapping="Wrap" Text="0コメント" VerticalAlignment="Top" Width="85" TextAlignment="Right" Padding="5, 0, 5, 0"/>
         <Button Content="リストクリア" HorizontalAlignment="Left" Margin="696,50,0,0" VerticalAlignment="Top" Width="60" Height="23" Click="AListClearBtnClick"/>
         <Button Content="リスト保存" HorizontalAlignment="Left" Margin="631,50,0,0" VerticalAlignment="Top" Width="60" Height="23" Click="SaveListBtnClick"/>
-        <DataGrid x:Name="acommView" ItemContainerStyle="{DynamicResource ListViewItemStyle}" VirtualizingPanel.ScrollUnit="Pixel" HorizontalAlignment="Right" Height="639" Margin="0,79,10,0" VerticalAlignment="Top" Width="561" SelectionMode="Extended">
-            <DataGrid.ContextMenu>
+        <ListView x:Name="acommView" ItemsSource="{Binding}" ItemContainerStyle="{DynamicResource ListViewItemStyle}" VirtualizingPanel.ScrollUnit="Pixel" HorizontalAlignment="Right" Height="639" Margin="0,79,10,0" VerticalAlignment="Top" Width="561" SelectionMode="Extended">
+            <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="時間をすべて同じものにする" Click="SetACommListTime"/>
                     <MenuItem Header="時間をすべてずらす" Click="ZurasuACommListTime"/>
@@ -116,14 +116,16 @@
                     <MenuItem Header="全てのコメントから184を除外する" Click="Exclude184CommandA"/>
                     <MenuItem Header="全てのコメントから選択したコマンドを除外する" Click="ExcludeAnyCommandA"/>
                 </ContextMenu>
-            </DataGrid.ContextMenu>
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="再生" Binding="{Binding Time}" Width="57" IsReadOnly="True"/>
-                <DataGridTextColumn Header="コマンド" Binding="{Binding Command}" Width="150" IsReadOnly="True"/>
-                <DataGridTextColumn Header="コメント" Binding="{Binding Comment}" Width="300" IsReadOnly="True"/>
-                <DataGridTextColumn Header="No." Binding="{Binding Number}" Width="50" IsReadOnly="True"/>
-            </DataGrid.Columns>
-        </DataGrid>
+            </ListView.ContextMenu>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="再生" DisplayMemberBinding="{Binding Path=Time}" Width="57"/>
+                    <GridViewColumn Header="コマンド" DisplayMemberBinding="{Binding Path=Command}" Width="150"/>
+                    <GridViewColumn Header="コメント" DisplayMemberBinding="{Binding Path=Comment}" Width="300"/>
+                    <GridViewColumn Header="No." DisplayMemberBinding="{Binding Path=Number}" Width="50"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
         <TextBlock x:Name="acommViewTextBox" HorizontalAlignment="Left" Margin="1090,717,0,0" TextWrapping="Wrap" Text="0コメント" VerticalAlignment="Top" Width="100" TextAlignment="Right" Padding="5, 0, 5, 0"/>
         <Button Content="→" HorizontalAlignment="Left" Margin="587,380,0,0" VerticalAlignment="Top" Width="37" Height="40" FontSize="28" FontWeight="Bold" Click="CenterGoButtonClick"/>
         <CheckBox Padding="0" Content="右に移したら削除するか" HorizontalAlignment="Left" Margin="10,717,0,0" VerticalAlignment="Top" Width="133" IsChecked="True" Name="isMoveMigiRemoven"/>

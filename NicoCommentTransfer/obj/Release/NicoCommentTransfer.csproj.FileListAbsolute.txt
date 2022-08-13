@@ -116,3 +116,5 @@ C:\Users\nn\source\repos\NicoCommentTransfer\NicoCommentTransfer\bin\Release\Sys
 C:\Users\nn\source\repos\NicoCommentTransfer\NicoCommentTransfer\bin\Release\System.Text.Json.xml
 C:\Users\nn\source\repos\NicoCommentTransfer\NicoCommentTransfer\bin\Release\System.Threading.Tasks.Extensions.xml
 C:\Users\nn\source\repos\NicoCommentTransfer\NicoCommentTransfer\bin\Release\System.ValueTuple.xml
+C:\Users\nn\source\repos\NicoCommentTransfer\NicoCommentTransfer\obj\Release\MainWindow2.g.cs
+C:\Users\nn\source\repos\NicoCommentTransfer\NicoCommentTransfer\obj\Release\MainWindow2.baml
