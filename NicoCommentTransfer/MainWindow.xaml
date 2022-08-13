@@ -53,6 +53,7 @@
         <ComboBox x:Name="SorTComboBox" HorizontalAlignment="Left" Margin="10,51,0,0" Padding="2,3.5,-3,3.5" VerticalAlignment="Top" Width="69" SelectedIndex="0">
             <ComboBoxItem Content="視コメ取得"/>
             <ComboBoxItem Content="投コメ取得"/>
+            <ComboBoxItem Content="簡単コメ取得"/>
             <ComboBoxItem Content="コミュニティコメ取得(コミュニティorチャンネル動画のみ)"/>
         </ComboBox>
         <usercontrols:TextBoxV x:Name="IDTextBox" HorizontalAlignment="Left" Height="23" Margin="85,51,0,0" VerticalAlignment="Top" Width="120" FontSize="14" BackText="動画ID(sm~,etc), URL"/>

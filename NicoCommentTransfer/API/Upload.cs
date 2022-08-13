@@ -20,7 +20,7 @@ namespace NicoCommentTransfer.API
         {
             try
             {
-                string res = client.getReq("https://www.upload.nicovideo.jp/v2/videos", "", "POST", header: new Dictionary<string, string>() {
+                string res = client.getReq(new Uri("https://www.upload.nicovideo.jp/v2/videos"), type:RestSharp.Method.Post, header: new Dictionary<string, string>() {
                     {"Accept-Language","ja,en-US;q=0.7,en;q=0.3" },
                     {"X-Frontend-Id","23" },
                     {"X-Frontend-Version","1.0.0" },
@@ -44,7 +44,7 @@ namespace NicoCommentTransfer.API
         }
         private string getUploadChunkStream(Client client)
         {
-            string res = client.getReq("https://www.upload.nicovideo.jp/v2/videos/" + videoid.ToString() + "/upload-chunk-stream", "", "POST", header: new Dictionary<string, string>() {
+            string res = client.getReq(new Uri("https://www.upload.nicovideo.jp/v2/videos/" + videoid.ToString() + "/upload-chunk-stream"), type:RestSharp.Method.Post, header: new Dictionary<string, string>() {
                     {"Accept-Language","ja,en-US;q=0.7,en;q=0.3" },
                     {"X-Frontend-Id","23" },
                     {"X-Frontend-Version","1.0.0" },
@@ -63,7 +63,7 @@ namespace NicoCommentTransfer.API
         }
         private string getMyData(Client client)
         {
-            string res = client.getReq("https://www.upload.nicovideo.jp/v2/users/me", "", "GET", header: new Dictionary<string, string>() {
+            string res = client.getReq(new Uri("https://www.upload.nicovideo.jp/v2/users/me"), type:RestSharp.Method.Get, header: new Dictionary<string, string>() {
                     {"Accept-Language","ja,en-US;q=0.7,en;q=0.3" },
                     {"X-Frontend-Id","23" },
                     {"X-Frontend-Version","1.0.0" },
@@ -128,9 +128,13 @@ namespace NicoCommentTransfer.API
             try
             {
                 Console.WriteLine(url);
-                string param = "qquuid=" + uuid + "&qqfilename=" + filename + "&qqtotalfilesize=" + filesize + "&qqtotalparts=" + totalpart;
-                Console.WriteLine(param);
-                string res = client.getReqWithForm(url, param, header: new Dictionary<string, string>() {
+                string res = client.getReqWithForm(new Uri(url), new Dictionary<string, string>()
+                {
+                    {"qquuid", uuid },
+                    {"qqfilename", filename },
+                    {"qqtotalfilesize", filesize },
+                    {"qqtotalparts", totalpart }
+                }, header: new Dictionary<string, string>() {
                     {"Accept-Encoding" ,"gzip, deflate, br"},
                     {"Accept-Language" ,"ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7"},
                     {"Sec-Fetch-Dest","empty"},
@@ -152,7 +156,7 @@ namespace NicoCommentTransfer.API
         {
             try
             {
-                string res = client.getReq("https://www.upload.nicovideo.jp/v2/videos/" + videoid.ToString() + "/status", "", "GET", header: new Dictionary<string, string>() {
+                string res = client.getReq(new Uri("https://www.upload.nicovideo.jp/v2/videos/" + videoid.ToString() + "/status"), type:RestSharp.Method.Get, header: new Dictionary<string, string>() {
                     {"Accept-Language","ja,en-US;q=0.7,en;q=0.3" },
                     {"X-Frontend-Id","23" },
                     {"X-Frontend-Version","1.0.0" },
@@ -178,7 +182,7 @@ namespace NicoCommentTransfer.API
             reqj.Add("title", title);
             reqj.Add("description", System.Web.HttpUtility.HtmlEncode(desc));
             reqj.Add("signature", "");
-            string res = client.getReqWithJson("https://www.upload.nicovideo.jp/v2/text/format", JsonConvert.SerializeObject(reqj), header: new Dictionary<string, string>() {
+            string res = client.getReqWithJson(new Uri("https://www.upload.nicovideo.jp/v2/text/format"), JsonConvert.SerializeObject(reqj), header: new Dictionary<string, string>() {
                     {"Accept-Language","ja,en-US;q=0.7,en;q=0.3" },
                     {"X-Frontend-Id","23" },
                     {"X-Frontend-Version","1.0.0" },
@@ -190,7 +194,7 @@ namespace NicoCommentTransfer.API
         private void getThumbnail(Client client)
         {
             string url = "https://www.upload.nicovideo.jp/v2/videos/"+videoid.ToString()+"/scene-thumbnails";
-            string res = client.getReq(url, "", "POST", header: new Dictionary<string, string>() {
+            string res = client.getReq(new Uri(url), type:RestSharp.Method.Get, header: new Dictionary<string, string>() {
                     {"Accept-Language","ja,en-US;q=0.7,en;q=0.3" },
                     {"X-Frontend-Id","23" },
                     {"X-Frontend-Version","1.0.0" },
@@ -206,7 +210,7 @@ namespace NicoCommentTransfer.API
             else { MKMetaC meta = new MKMetaC(int.Parse(id), title, datail, mode, community); metas = JsonConvert.SerializeObject(meta); }
             string jsons = metas;
             Console.WriteLine(jsons);
-            string res = client.getReqWithJson("https://www.upload.nicovideo.jp/v2/videos/" + videoid.ToString(), jsons, header: new Dictionary<string, string>() {
+            string res = client.getReqWithJson(new Uri("https://www.upload.nicovideo.jp/v2/videos/" + videoid.ToString()), jsons, header: new Dictionary<string, string>() {
                     {"Accept-Language","ja,en-US;q=0.7,en;q=0.3" },
                     {"X-Frontend-Id","23" },
                     {"X-Frontend-Version","1.0.0" },

@@ -462,7 +462,11 @@ namespace NicoCommentTransfer
             {
                 try
                 {
-                    string label = (SorTComboBox.SelectedIndex == 0) ? "default" : ((SorTComboBox.SelectedIndex == 1) ? "owner" : "community");
+                    string label = "";
+                    if(SorTComboBox.SelectedIndex == 0) label = "default";
+                    else if(SorTComboBox.SelectedIndex == 1) label = "owner";
+                    else if(SorTComboBox.SelectedIndex == 2) label = "easy";
+                    else if(SorTComboBox.SelectedIndex == 3) label = "community";
                     bVideoData.getWatchAPIData(client, movieurl);
                     SBMessageTB.Text = (bVideoData.Data != null) ? bVideoData.Data.Video.Title : "";
                     List<CommentData> cd = bVideoData.getVideoCommentDatas(client, label, (bool)GetMyMemoryHidden.IsChecked);

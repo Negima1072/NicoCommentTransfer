@@ -58,7 +58,7 @@ namespace NicoCommentTransfer.API
                 reader.Close();
                 return s;
             }
-            catch (WebException e)
+            catch (WebException)
             {
                 refresh();
                 goto reqStart;

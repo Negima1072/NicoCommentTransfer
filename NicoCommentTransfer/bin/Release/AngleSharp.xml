@@ -187,7 +187,7 @@
         </member>
         <member name="T:AngleSharp.Attributes.DomNoInterfaceObjectAttribute">
             <summary>
-            This attribute appears on an interfaces, which must not be available 
+            This attribute appears on interfaces, which must not be available 
             in the ECMAScript binding.
             </summary>
         </member>
@@ -288,6 +288,11 @@
             </summary>
             <param name="eventName">The name of the event.</param>
             <param name="error">The error to be transported.</param>
+        </member>
+        <member name="P:AngleSharp.Browser.Dom.Events.TrackEvent.Error">
+            <summary>
+            Error to be transported.
+            </summary>
         </member>
         <member name="T:AngleSharp.Browser.Dom.IApplicationCache">
             <summary>
@@ -783,7 +788,7 @@
             Implementation of a refresh handler.
             </summary>
         </member>
-        <member name="M:AngleSharp.Browser.RefreshMetaHandler.#ctor(System.Predicate{AngleSharp.Url})">
+        <member name="M:AngleSharp.Browser.RefreshMetaHandler.#ctor(System.Predicate{AngleSharp.Dom.Url})">
             <summary>
             Creates a new instance of the refresh meta handler.
             </summary>
@@ -1033,7 +1038,7 @@
             <param name="cancel">The cancellation token.</param>
             <returns>The task that creates the document.</returns>
         </member>
-        <member name="M:AngleSharp.BrowsingContextExtensions.OpenAsync(AngleSharp.IBrowsingContext,AngleSharp.Url,System.Threading.CancellationToken)">
+        <member name="M:AngleSharp.BrowsingContextExtensions.OpenAsync(AngleSharp.IBrowsingContext,AngleSharp.Dom.Url,System.Threading.CancellationToken)">
             <summary>
             Opens a new document loaded from the provided url asynchronously in
             the given context.
@@ -1082,7 +1087,7 @@
             <param name="context">The browsing context to use.</param>
             <param name="document">The new document.</param>
         </member>
-        <member name="M:AngleSharp.BrowsingContextExtensions.GetNavigationHandler(AngleSharp.IBrowsingContext,AngleSharp.Url)">
+        <member name="M:AngleSharp.BrowsingContextExtensions.GetNavigationHandler(AngleSharp.IBrowsingContext,AngleSharp.Dom.Url)">
             <summary>
             Gets the navigation handler that supports the provided protocol.
             </summary>
@@ -1147,7 +1152,7 @@
             <param name="type">The mime-type of the resource.</param>
             <returns>The service instance or null.</returns>
         </member>
-        <member name="M:AngleSharp.BrowsingContextExtensions.GetCookie(AngleSharp.IBrowsingContext,AngleSharp.Url)">
+        <member name="M:AngleSharp.BrowsingContextExtensions.GetCookie(AngleSharp.IBrowsingContext,AngleSharp.Dom.Url)">
             <summary>
             Gets the cookie for the given URL, if any.
             </summary>
@@ -1155,7 +1160,7 @@
             <param name="url">The URL of the cookie.</param>
             <returns>The cookie or the empty string.</returns>
         </member>
-        <member name="M:AngleSharp.BrowsingContextExtensions.SetCookie(AngleSharp.IBrowsingContext,AngleSharp.Url,System.String)">
+        <member name="M:AngleSharp.BrowsingContextExtensions.SetCookie(AngleSharp.IBrowsingContext,AngleSharp.Dom.Url,System.String)">
             <summary>
             Sets the cookie for the given URL.
             </summary>
@@ -1741,7 +1746,7 @@
             <param name="culture">The culture to set.</param>
             <returns>The new instance with the culture being set.</returns>
         </member>
-        <member name="M:AngleSharp.ConfigurationExtensions.WithMetaRefresh(AngleSharp.IConfiguration,System.Predicate{AngleSharp.Url})">
+        <member name="M:AngleSharp.ConfigurationExtensions.WithMetaRefresh(AngleSharp.IConfiguration,System.Predicate{AngleSharp.Dom.Url})">
             <summary>
             Registeres a handler to include the meta data refresh.
             </summary>
@@ -1849,6 +1854,18 @@
             <summary>
             An instance of the CssStyleFormatter.
             </summary>
+        </member>
+        <member name="T:AngleSharp.Css.CssUtilities">
+            <summary>
+            A set of useful CSS utilities.
+            </summary>
+        </member>
+        <member name="M:AngleSharp.Css.CssUtilities.Escape(System.String)">
+            <summary>
+            Escapes the given string using CSS escaping rules.
+            </summary>
+            <param name="text">The text to escape.</param>
+            <returns>The escaped text.</returns>
         </member>
         <member name="T:AngleSharp.Css.DefaultAttributeSelectorFactory">
             <summary>
@@ -3214,7 +3231,7 @@
         </member>
         <member name="T:AngleSharp.Dom.AdjacentPosition">
             <summary>
-            Enumeration with possible values for the adjacent position insertation.
+            Enumeration with possible values for the adjacent position insertion.
             </summary>
         </member>
         <member name="F:AngleSharp.Dom.AdjacentPosition.BeforeBegin">
@@ -4047,6 +4064,46 @@
             The integrity attribute.
             </summary>
         </member>
+        <member name="F:AngleSharp.Dom.AttributeNames.Clear">
+            <summary>
+            The clear attribute.
+            </summary>
+        </member>
+        <member name="F:AngleSharp.Dom.AttributeNames.Codetype">
+            <summary>
+            The codetype attribute.
+            </summary>
+        </member>
+        <member name="F:AngleSharp.Dom.AttributeNames.Compact">
+            <summary>
+            The compact attribute.
+            </summary>
+        </member>
+        <member name="F:AngleSharp.Dom.AttributeNames.Declare">
+            <summary>
+            The declare attribute.
+            </summary>
+        </member>
+        <member name="F:AngleSharp.Dom.AttributeNames.Direction">
+            <summary>
+            The direction attribute.
+            </summary>
+        </member>
+        <member name="F:AngleSharp.Dom.AttributeNames.NoHref">
+            <summary>
+            The nohref attribute.
+            </summary>
+        </member>
+        <member name="F:AngleSharp.Dom.AttributeNames.NoShade">
+            <summary>
+            The noshade attribute.
+            </summary>
+        </member>
+        <member name="F:AngleSharp.Dom.AttributeNames.ValueType">
+            <summary>
+            The valuetype attribute.
+            </summary>
+        </member>
         <member name="T:AngleSharp.Dom.CreateDocumentOptions">
             <summary>
             Data transport class to abstract common options in document creation.
@@ -4159,17 +4216,6 @@
             <summary>
             Useful methods for document objects.
             </summary>
-        </member>
-        <member name="M:AngleSharp.Dom.DocumentExtensions.ForEachRange(AngleSharp.Dom.Document,System.Predicate{AngleSharp.Dom.Range},System.Action{AngleSharp.Dom.Range})">
-            <summary>
-            Iterates over all ranges in the document, applying the provided
-            action when the given condition is fulfilled.
-            </summary>
-            <param name="document">The document that hosts the ranges.</param>
-            <param name="condition">
-            The condition that needs to be fulfilled.
-            </param>
-            <param name="action">The action to apply to the range.</param>
         </member>
         <member name="M:AngleSharp.Dom.DocumentExtensions.CreateElement``1(AngleSharp.Dom.IDocument)">
             <summary>
@@ -4317,7 +4363,7 @@
         </member>
         <member name="F:AngleSharp.Dom.DocumentPositions.Contains">
             <summary>
-            The node is contains the other element.
+            The node contains the other element.
             </summary>
         </member>
         <member name="F:AngleSharp.Dom.DocumentPositions.ContainedBy">
@@ -4559,7 +4605,7 @@
             <param name="namespaceUri">The located namespace URI.</param>
             <returns>True if the namespace URI could be located, otherwise false.</returns>
         </member>
-        <member name="M:AngleSharp.Dom.ElementExtensions.CreateRequestFor(AngleSharp.Dom.IElement,AngleSharp.Url)">
+        <member name="M:AngleSharp.Dom.ElementExtensions.CreateRequestFor(AngleSharp.Dom.IElement,AngleSharp.Dom.Url)">
             <summary>
             Creates a new resource request from the provided element for the
             given url.
@@ -4691,6 +4737,20 @@
             <param name="element">The element to check.</param>
             <returns>True if the element has been visited, otherwise false.</returns>
         </member>
+        <member name="M:AngleSharp.Dom.ElementExtensions.CheckActive(AngleSharp.Dom.IElement)">
+            <summary>
+            Checks if the given element is currently active.
+            </summary>
+            <param name="element">The element to inspect.</param>
+            <returns>True if the element is active, otherwise false.</returns>
+        </member>
+        <member name="M:AngleSharp.Dom.ElementExtensions.CheckVisited(AngleSharp.Dom.IElement)">
+            <summary>
+            Checks if the given element was visited previously.
+            </summary>
+            <param name="element">The element to inspect.</param>
+            <returns>True if the element was previously visited, otherwise false.</returns>
+        </member>
         <member name="M:AngleSharp.Dom.ElementExtensions.IsLink(AngleSharp.Dom.IElement)">
             <summary>
             Checks if the element is a link.
@@ -4739,6 +4799,20 @@
             </summary>
             <param name="element">The element to check.</param>
             <returns>True if the element is readonly, otherwise false.</returns>
+        </member>
+        <member name="M:AngleSharp.Dom.ElementExtensions.IsMutable(AngleSharp.Html.Dom.IHtmlInputElement)">
+            <summary>
+            Checks if the input can be changed.
+            </summary>
+            <param name="input">The input to check.</param>
+            <returns>True if the element is mutable, otherwise false.</returns>
+        </member>
+        <member name="M:AngleSharp.Dom.ElementExtensions.IsMutable(AngleSharp.Html.Dom.IHtmlTextAreaElement)">
+            <summary>
+            Checks if the textarea can be changed.
+            </summary>
+            <param name="textArea">The area to check.</param>
+            <returns>True if the element is mutable, otherwise false.</returns>
         </member>
         <member name="M:AngleSharp.Dom.ElementExtensions.IsEditable(AngleSharp.Dom.IElement)">
             <summary>
@@ -5014,7 +5088,7 @@
             <param name="cancel">The token for cancellation.</param>
             <returns>The task eventually resulting in the response.</returns>
         </member>
-        <member name="M:AngleSharp.Dom.ElementExtensions.Process(AngleSharp.Dom.Element,AngleSharp.Io.Processors.IRequestProcessor,AngleSharp.Url)">
+        <member name="M:AngleSharp.Dom.ElementExtensions.Process(AngleSharp.Dom.Element,AngleSharp.Io.Processors.IRequestProcessor,AngleSharp.Dom.Url)">
             <summary>
             Creates a task to use the processor for loading and processing the
             resource from the provided url.
@@ -6678,6 +6752,16 @@
             Gets the prefix used by the namespace.
             </summary>
         </member>
+        <member name="P:AngleSharp.Dom.IAttr.OwnerElement">
+            <summary>
+            Gets the owning element, if any.
+            </summary>
+        </member>
+        <member name="P:AngleSharp.Dom.IAttr.IsSpecified">
+            <summary>
+            Gets always true.
+            </summary>
+        </member>
         <member name="T:AngleSharp.Dom.IAttributeObserver">
             <summary>
             Represents the interface for observing attribute changes.
@@ -7285,6 +7369,20 @@
             <summary>
             Gets the import ancestor, if any.
             </summary>
+        </member>
+        <member name="M:AngleSharp.Dom.IDocument.AddImportUrl(System.Uri)">
+            <summary>
+            Adds a Uri to the list of imported Uris.
+            </summary>
+            <param name="uri">The Uri to add.</param>
+            <returns>True if uri is not null or previously added, false otherwise.</returns>
+        </member>
+        <member name="M:AngleSharp.Dom.IDocument.HasImported(System.Uri)">
+            <summary>
+            Checks if a document has already imported a Uri.
+            </summary>
+            <param name="uri">The Uri to check.</param>
+            <returns>True if already imported.</returns>
         </member>
         <member name="P:AngleSharp.Dom.IDocument.Source">
             <summary>
@@ -8329,6 +8427,16 @@
             <param name="value">The value of the attribute.</param>
             <param name="namespaceUri">The namespace of the attribute.</param>
         </member>
+        <member name="P:AngleSharp.Dom.Attr.IsSpecified">
+            <summary>
+            Gets always true.
+            </summary>
+        </member>
+        <member name="P:AngleSharp.Dom.Attr.OwnerElement">
+            <summary>
+            Gets the owner of the attribute, if any.
+            </summary>
+        </member>
         <member name="P:AngleSharp.Dom.Attr.Prefix">
             <summary>
             Gets the attribute's prefix.
@@ -8419,7 +8527,7 @@
         </member>
         <member name="M:AngleSharp.Dom.CollectionExtensions.Accepts(AngleSharp.Dom.FilterSettings,AngleSharp.Dom.INode)">
             <summary>
-            Determines if the current filter settings includes the provided
+            Determines if the current filter settings include the provided
             node.
             </summary>
             <param name="filter">The filter settings to use.</param>
@@ -8989,6 +9097,12 @@
         <member name="M:AngleSharp.Dom.Document.SetTitle(System.String)">
             <inheritdoc />
         </member>
+        <member name="M:AngleSharp.Dom.Document.AddImportUrl(System.Uri)">
+            <inheritdoc />
+        </member>
+        <member name="M:AngleSharp.Dom.Document.HasImported(System.Uri)">
+            <inheritdoc />
+        </member>
         <member name="T:AngleSharp.Dom.DocumentFragment">
             <summary>
             Represents a document fragment.
@@ -9506,7 +9620,7 @@
             <inheritdoc />
         </member>
         <member name="M:AngleSharp.Dom.Node.Equals(AngleSharp.Dom.INode)">
-            <inheritdoc />
+            <inheritdoc cref="M:System.IEquatable`1.Equals(`0)" />
         </member>
         <member name="M:AngleSharp.Dom.Node.GetPrefixAndLocalName(System.String,System.String@,System.String@,System.String@)">
             <summary>
@@ -9581,7 +9695,7 @@
             The element may start with an additional free line.
             </summary>
         </member>
-        <member name="F:AngleSharp.Dom.NodeFlags.ImplicitelyClosed">
+        <member name="F:AngleSharp.Dom.NodeFlags.ImplicitlyClosed">
             <summary>
             The element is implicitely closed.
             </summary>
@@ -10543,7 +10657,7 @@
         </member>
         <member name="P:AngleSharp.Dom.IUrlUtilities.UserName">
             <summary>
-            Gets or sets the username specified before the domain name..
+            Gets or sets the username specified before the domain name.
             </summary>
         </member>
         <member name="P:AngleSharp.Dom.IUrlUtilities.Password">
@@ -11141,12 +11255,13 @@
             <param name="parent">The parent that contains the elements.</param>
             <returns>The instance or null.</returns>
         </member>
-        <member name="M:AngleSharp.Dom.NodeExtensions.FindDescendant``1(AngleSharp.Dom.INode)">
+        <member name="M:AngleSharp.Dom.NodeExtensions.FindDescendant``1(AngleSharp.Dom.INode,System.Int32)">
             <summary>
             Tries to find a descendant of a certain type.
             </summary>
             <typeparam name="TNode">The node type to find.</typeparam>
             <param name="parent">The parent that contains the elements.</param>
+            <param name="maxDepth">The maximum depth to allow for searching. A value of 0 is equivalent to FindChild.</param>
             <returns>The instance or null.</returns>
         </member>
         <member name="M:AngleSharp.Dom.NodeExtensions.GetAssignedSlot(AngleSharp.Dom.IShadowRoot,System.String)">
@@ -12514,6 +12629,276 @@
             The xml tag.
             </summary>
         </member>
+        <member name="T:AngleSharp.Dom.Url">
+            <summary>
+            Represents an Url class according to RFC3986. This is the base for all
+            internal Url manipulation.
+            Specification for the API used from https://url.spec.whatwg.org/#api.
+            </summary>
+        </member>
+        <member name="M:AngleSharp.Dom.Url.#ctor(System.String,System.String)">
+            <summary>
+            Creates a new Url from the given string.
+            </summary>
+            <param name="url">The address to represent.</param>
+            <param name="baseAddress">The base address, if any.</param>
+        </member>
+        <member name="M:AngleSharp.Dom.Url.#ctor(System.String)">
+            <summary>
+            Creates a new Url from the given string.
+            </summary>
+            <param name="address">The address to represent.</param>
+        </member>
+        <member name="M:AngleSharp.Dom.Url.#ctor(AngleSharp.Dom.Url,System.String)">
+            <summary>
+            Creates a new absolute Url from the relative Url with the given
+            base address.
+            </summary>
+            <param name="baseAddress">The base address to use.</param>
+            <param name="relativeAddress">
+            The relative address to represent.
+            </param>
+        </member>
+        <member name="M:AngleSharp.Dom.Url.#ctor(AngleSharp.Dom.Url)">
+            <summary>
+            Creates a new Url by copying the other Url.
+            </summary>
+            <param name="address">The address to copy.</param>
+        </member>
+        <member name="M:AngleSharp.Dom.Url.Create(System.String)">
+            <summary>
+            Creates an Url from an absolute url transported in a string.
+            </summary>
+            <param name="address">The address to use.</param>
+            <returns>The new Url.</returns>
+        </member>
+        <member name="M:AngleSharp.Dom.Url.Convert(System.Uri)">
+            <summary>
+            Creates an Url from an url transported in an Uri.
+            </summary>
+            <param name="uri">The url to use.</param>
+            <returns>The new Url.</returns>
+        </member>
+        <member name="P:AngleSharp.Dom.Url.Origin">
+            <summary>
+            Gets the origin of the stored url.
+            </summary>
+        </member>
+        <member name="P:AngleSharp.Dom.Url.IsInvalid">
+            <summary>
+            Gets if the URL parsing resulted in an error.
+            </summary>
+        </member>
+        <member name="P:AngleSharp.Dom.Url.IsRelative">
+            <summary>
+            Gets if the stored url is relative.
+            </summary>
+        </member>
+        <member name="P:AngleSharp.Dom.Url.IsAbsolute">
+            <summary>
+            Gets if the stored url is absolute.
+            </summary>
+        </member>
+        <member name="P:AngleSharp.Dom.Url.UserName">
+            <summary>
+            Gets or sets the username for authorization.
+            </summary>
+        </member>
+        <member name="P:AngleSharp.Dom.Url.Password">
+            <summary>
+            Gets or sets the password for authorization.
+            </summary>
+        </member>
+        <member name="P:AngleSharp.Dom.Url.Data">
+            <summary>
+            Gets the additional stored data of the URL. This is data that could
+            not be assigned.
+            </summary>
+        </member>
+        <member name="P:AngleSharp.Dom.Url.Fragment">
+            <summary>
+            Gets or sets the fragment, e.g., "first-section".
+            </summary>
+        </member>
+        <member name="P:AngleSharp.Dom.Url.Hash">
+            <summary>
+            Gets or sets the hash, e.g., "#first-section".
+            </summary>
+        </member>
+        <member name="P:AngleSharp.Dom.Url.Host">
+            <summary>
+            Gets or sets the host, e.g. "localhost:8800" or "www.w3.org".
+            </summary>
+        </member>
+        <member name="P:AngleSharp.Dom.Url.HostName">
+            <summary>
+            Gets or sets the host name, e.g. "localhost" or "www.w3.org".
+            </summary>
+        </member>
+        <member name="P:AngleSharp.Dom.Url.Href">
+            <summary>
+            Gets or sets the hyper reference, i.e. the full URL.
+            </summary>
+        </member>
+        <member name="P:AngleSharp.Dom.Url.Path">
+            <summary>
+            Gets or sets the path, e.g. "mypath".
+            </summary>
+        </member>
+        <member name="P:AngleSharp.Dom.Url.PathName">
+            <summary>
+            Gets or sets the pathname, e.g. "/mypath".
+            </summary>
+        </member>
+        <member name="P:AngleSharp.Dom.Url.Port">
+            <summary>
+            Gets or sets the port, e.g. "8800".
+            </summary>
+        </member>
+        <member name="P:AngleSharp.Dom.Url.Scheme">
+            <summary>
+            Gets or sets the scheme, e.g. "http".
+            </summary>
+        </member>
+        <member name="P:AngleSharp.Dom.Url.Protocol">
+            <summary>
+            Gets or sets the protocol, e.g. "http:".
+            </summary>
+        </member>
+        <member name="P:AngleSharp.Dom.Url.Query">
+            <summary>
+            Gets or sets the query part, e.g., "foo=bar".
+            </summary>
+        </member>
+        <member name="P:AngleSharp.Dom.Url.Search">
+            <summary>
+            Gets or sets the search part, e.g., "?foo=bar".
+            </summary>
+        </member>
+        <member name="P:AngleSharp.Dom.Url.SearchParams">
+            <summary>
+            Obtains an advanced view on the provided query parameter.
+            </summary>
+        </member>
+        <member name="M:AngleSharp.Dom.Url.GetHashCode">
+            <summary>
+            Serves as the default hash function.
+            </summary>
+            <returns>A hash code for the current url.</returns>
+        </member>
+        <member name="M:AngleSharp.Dom.Url.Equals(System.Object)">
+            <summary>
+            Determines whether the specified object is equal to the current
+            object.
+            </summary>
+            <param name="obj">
+            The object to compare with the current object.
+            </param>
+            <returns>
+            True if the object is equal to the current object, otherwise false.
+            </returns>
+        </member>
+        <member name="M:AngleSharp.Dom.Url.Equals(AngleSharp.Dom.Url)">
+            <summary>
+            Determines whether the specified url is equal to the current
+            object.
+            </summary>
+            <param name="other">
+            The url to compare with the current one.
+            </param>
+            <returns>
+            True if the given url is equal to the current url, otherwise false.
+            </returns>
+        </member>
+        <member name="M:AngleSharp.Dom.Url.op_Implicit(AngleSharp.Dom.Url)~System.Uri">
+            <summary>
+            Converts the given Url to an Uri.
+            </summary>
+            <param name="value">The Url to convert.</param>
+            <returns>The Uri instance.</returns>
+        </member>
+        <member name="M:AngleSharp.Dom.Url.ToJson">
+            <summary>
+            Serializes the URL string to a JSON compatible string representation.
+            </summary>
+            <returns>The currently stored url.</returns>
+        </member>
+        <member name="M:AngleSharp.Dom.Url.ToString">
+            <summary>
+            Returns a string that represents the current url.
+            </summary>
+            <returns>The currently stored url.</returns>
+        </member>
+        <member name="M:AngleSharp.Dom.Url.Serialize">
+            <summary>
+            Returns the string representation of the current location.
+            </summary>
+            <returns>The string that equals the hyper reference.</returns>
+        </member>
+        <member name="T:AngleSharp.Dom.UrlSearchParams">
+            <summary>
+            Represents a list of query parameters.
+            </summary>
+        </member>
+        <member name="M:AngleSharp.Dom.UrlSearchParams.#ctor">
+            <summary>
+            Creates a new instance.
+            </summary>
+        </member>
+        <member name="M:AngleSharp.Dom.UrlSearchParams.#ctor(System.String)">
+            <summary>
+            Creates a new instance filled from the provided string.
+            </summary>
+        </member>
+        <member name="M:AngleSharp.Dom.UrlSearchParams.Append(System.String,System.String)">
+            <summary>
+            Appends another value for the given search param name.
+            </summary>
+            <param name="name">The name of the param.</param>
+            <param name="value">The value of the param.</param>
+        </member>
+        <member name="M:AngleSharp.Dom.UrlSearchParams.Delete(System.String)">
+            <summary>
+            Deletes the values of the search param name.
+            </summary>
+            <param name="name">The name of the param.</param>
+        </member>
+        <member name="M:AngleSharp.Dom.UrlSearchParams.Get(System.String)">
+            <summary>
+            Gets the first value of the given search param name, if any.
+            </summary>
+            <param name="name">The name of the param.</param>
+            <returns>The value of the param, if any.</returns>
+        </member>
+        <member name="M:AngleSharp.Dom.UrlSearchParams.GetAll(System.String)">
+            <summary>
+            Gets all values for the given search param name.
+            </summary>
+            <param name="name">The name of the param.</param>
+            <returns>The list with all stored values.</returns>
+        </member>
+        <member name="M:AngleSharp.Dom.UrlSearchParams.Has(System.String)">
+            <summary>
+            Checks if a search param with the given name exists.
+            </summary>
+            <param name="name">The name of the param.</param>
+            <returns>True if such a param exists, otherwise false.</returns>
+        </member>
+        <member name="M:AngleSharp.Dom.UrlSearchParams.Set(System.String,System.String)">
+            <summary>
+            Sets the given search param.
+            </summary>
+            <param name="name">The name of the param.</param>
+            <param name="value">The value of the param.</param>
+        </member>
+        <member name="M:AngleSharp.Dom.UrlSearchParams.Sort">
+            <summary>
+            Sorts the underlying list.
+            </summary>
+        </member>
+        <member name="M:AngleSharp.Dom.UrlSearchParams.ToString">
+            <inheritdoc />
+        </member>
         <member name="T:AngleSharp.Dom.VerticalAlignment">
             <summary>
             The list of possible vertical alignments (extended by CSS).
@@ -12649,6 +13034,21 @@
             <param name="style">The style node to format.</param>
             <param name="writer">The output target of the serialization.</param>
         </member>
+        <member name="M:AngleSharp.FormatExtensions.ToCssAsync(AngleSharp.IStyleFormattable,System.IO.TextWriter)">
+            <summary>
+            Writes the serialization of the node guided by the formatter.
+            </summary>
+            <param name="style">The style node to format.</param>
+            <param name="writer">The output target of the serialization.</param>
+        </member>
+        <member name="M:AngleSharp.FormatExtensions.ToCssAsync(AngleSharp.IStyleFormattable,System.IO.Stream)">
+            <summary>
+            Writes the serialization of the node guided by the formatter to the
+            given stream.
+            </summary>
+            <param name="style">The style node to format.</param>
+            <param name="stream">The output stream to use.</param>
+        </member>
         <member name="M:AngleSharp.FormatExtensions.ToHtml(AngleSharp.IMarkupFormattable)">
             <summary>
             Returns the (complete) HTML markup representation of the node.
@@ -12686,6 +13086,21 @@
             </summary>
             <param name="markup">The markup node to format.</param>
             <returns>The source code snippet.</returns>
+        </member>
+        <member name="M:AngleSharp.FormatExtensions.ToHtmlAsync(AngleSharp.IMarkupFormattable,System.IO.TextWriter)">
+            <summary>
+            Writes the serialization of the node guided by the formatter.
+            </summary>
+            <param name="markup">The markup node to format.</param>
+            <param name="writer">The output target of the serialization.</param>
+        </member>
+        <member name="M:AngleSharp.FormatExtensions.ToHtmlAsync(AngleSharp.IMarkupFormattable,System.IO.Stream)">
+            <summary>
+            Writes the serialization of the node guided by the formatter to the
+            given stream.
+            </summary>
+            <param name="markup">The markup node to format.</param>
+            <param name="stream">The output stream to use.</param>
         </member>
         <member name="T:AngleSharp.Html.DefaultInputTypeFactory">
             <summary>
@@ -15310,6 +15725,11 @@
             Gets or sets the value of the parameter.
             </summary>
         </member>
+        <member name="T:AngleSharp.Html.Dom.IHtmlPictureElement">
+            <summary>
+            Represents the HTML picture element.
+            </summary>
+        </member>
         <member name="T:AngleSharp.Html.Dom.IHtmlPreElement">
             <summary>
             Represents the pre HTML element.
@@ -16683,37 +17103,37 @@
             Represents the form element.
             </summary>
         </member>
-        <member name="M:AngleSharp.Html.Dom.HtmlFormElement.PostToData(AngleSharp.Url,AngleSharp.Html.Dom.IHtmlElement)">
+        <member name="M:AngleSharp.Html.Dom.HtmlFormElement.PostToData(AngleSharp.Dom.Url,AngleSharp.Html.Dom.IHtmlElement)">
             <summary>
             More information can be found at:
             http://www.w3.org/html/wg/drafts/html/master/forms.html#submit-data-post
             </summary>
         </member>
-        <member name="M:AngleSharp.Html.Dom.HtmlFormElement.MailWithHeaders(AngleSharp.Url,AngleSharp.Html.Dom.IHtmlElement)">
+        <member name="M:AngleSharp.Html.Dom.HtmlFormElement.MailWithHeaders(AngleSharp.Dom.Url,AngleSharp.Html.Dom.IHtmlElement)">
             <summary>
             More information can be found at:
             http://www.w3.org/html/wg/drafts/html/master/forms.html#submit-mailto-headers
             </summary>
         </member>
-        <member name="M:AngleSharp.Html.Dom.HtmlFormElement.MailAsBody(AngleSharp.Url,AngleSharp.Html.Dom.IHtmlElement)">
+        <member name="M:AngleSharp.Html.Dom.HtmlFormElement.MailAsBody(AngleSharp.Dom.Url,AngleSharp.Html.Dom.IHtmlElement)">
             <summary>
             More information can be found at:
             http://www.w3.org/html/wg/drafts/html/master/forms.html#submit-mailto-body
             </summary>
         </member>
-        <member name="M:AngleSharp.Html.Dom.HtmlFormElement.GetActionUrl(AngleSharp.Url)">
+        <member name="M:AngleSharp.Html.Dom.HtmlFormElement.GetActionUrl(AngleSharp.Dom.Url)">
             <summary>
             More information can be found at:
             http://www.w3.org/html/wg/drafts/html/master/forms.html#submit-get-action
             </summary>
         </member>
-        <member name="M:AngleSharp.Html.Dom.HtmlFormElement.SubmitAsEntityBody(AngleSharp.Url,AngleSharp.Html.Dom.IHtmlElement)">
+        <member name="M:AngleSharp.Html.Dom.HtmlFormElement.SubmitAsEntityBody(AngleSharp.Dom.Url,AngleSharp.Html.Dom.IHtmlElement)">
             <summary>
             Submits the body of the form.
             http://www.w3.org/html/wg/drafts/html/master/forms.html#submit-body
             </summary>
         </member>
-        <member name="M:AngleSharp.Html.Dom.HtmlFormElement.MutateActionUrl(AngleSharp.Url,AngleSharp.Html.Dom.IHtmlElement)">
+        <member name="M:AngleSharp.Html.Dom.HtmlFormElement.MutateActionUrl(AngleSharp.Dom.Url,AngleSharp.Html.Dom.IHtmlElement)">
             <summary>
             More information can be found at:
             http://www.w3.org/html/wg/drafts/html/master/forms.html#submit-mutate-action
@@ -16971,16 +17391,6 @@
         <member name="M:AngleSharp.Html.Dom.HtmlMenuItemElement.#ctor(AngleSharp.Dom.Document,System.String)">
             <summary>
             Creates a new HTML menuitem element.
-            </summary>
-        </member>
-        <member name="P:AngleSharp.Html.Dom.HtmlMenuItemElement.IsVisited">
-            <summary>
-            Gets or sets if the link has been visited.
-            </summary>
-        </member>
-        <member name="P:AngleSharp.Html.Dom.HtmlMenuItemElement.IsActive">
-            <summary>
-            Gets or sets if the link is currently active.
             </summary>
         </member>
         <member name="P:AngleSharp.Html.Dom.HtmlMenuItemElement.Command">
@@ -17966,11 +18376,12 @@
             Gets the chosen boundary.
             </summary>
         </member>
-        <member name="M:AngleSharp.Html.FormDataSet.AsMultipart(System.Text.Encoding)">
+        <member name="M:AngleSharp.Html.FormDataSet.AsMultipart(AngleSharp.Html.Forms.Submitters.IHtmlEncoder,System.Text.Encoding)">
             <summary>
             Applies the multipart/form-data algorithm.
             http://www.w3.org/html/wg/drafts/html/master/forms.html#multipart/form-data-encoding-algorithm
             </summary>
+            <param name="htmlEncoder">HTML encoder.</param>
             <param name="encoding">(Optional) Explicit encoding.</param>
             <returns>A stream containing the body.</returns>
         </member>
@@ -18125,6 +18536,34 @@
             </summary>
             <param name="stream">The stream writer to use.</param>
         </member>
+        <member name="T:AngleSharp.Html.Forms.Submitters.DefaultHtmlEncoder">
+            <summary>
+            Represents the default HTML encoder.
+            </summary>
+        </member>
+        <member name="M:AngleSharp.Html.Forms.Submitters.DefaultHtmlEncoder.Encode(System.String,System.Text.Encoding)">
+            <summary>
+            Replaces characters in names and values that cannot be expressed by using the given
+            encoding with &amp;#...; base-10 unicode point.
+            </summary>
+            <param name="value">The value to sanitize.</param>
+            <param name="encoding">The encoding to consider.</param>
+            <returns>The sanitized value.</returns>
+        </member>
+        <member name="T:AngleSharp.Html.Forms.Submitters.IHtmlEncoder">
+            <summary>
+            Represents the HTML encoder.
+            </summary>
+        </member>
+        <member name="M:AngleSharp.Html.Forms.Submitters.IHtmlEncoder.Encode(System.String,System.Text.Encoding)">
+            <summary>
+            Replaces characters in names and values that cannot be expressed by using the given
+            encoding with &amp;#...; base-10 unicode point.
+            </summary>
+            <param name="value">The value to sanatize.</param>
+            <param name="encoding">The encoding to consider.</param>
+            <returns>The sanatized value.</returns>
+        </member>
         <member name="T:AngleSharp.Html.Forms.TextDataSetEntry">
             <summary>
             A text entry in a form.
@@ -18246,7 +18685,7 @@
             <summary>
             Creates the string representation of the attribute.
             </summary>
-            <param name="attribute">The attribute to serialize.</param>
+            <param name="attr">The attribute to serialize.</param>
             <returns>The string representation.</returns>
         </member>
         <member name="M:AngleSharp.Html.HtmlMarkupFormatter.EscapeText(System.String)">
@@ -18430,7 +18869,7 @@
         </member>
         <member name="T:AngleSharp.Html.InputTypes.BaseInputType">
             <summary>
-            Base type for the all input field types. Primarely from:
+            Base type for the all input field types. Primarily from:
             http://www.w3.org/TR/html5/forms.html#range-state-(type=range)
             </summary>
         </member>
@@ -18439,7 +18878,7 @@
             The start of the unix epoch (1st of January 1970).
             </summary>
         </member>
-        <member name="F:AngleSharp.Html.InputTypes.BaseInputType.Number">
+        <member name="F:AngleSharp.Html.InputTypes.BaseInputType.NumberPattern">
             <summary>
             Simple regular expression for floating point numbers.
             </summary>
@@ -18703,7 +19142,6 @@
             <summary>
             Starts loading the associated resource(s) asynchronously.
             </summary>
-            <returns></returns>
         </member>
         <member name="M:AngleSharp.Html.LinkRels.ImportLinkRelation.LoadAsync">
             <summary>
@@ -18759,6 +19197,9 @@
         <member name="M:AngleSharp.Html.MinifyMarkupFormatter.CloseTag(AngleSharp.Dom.IElement,System.Boolean)">
             <inheritdoc />
         </member>
+        <member name="M:AngleSharp.Html.MinifyMarkupFormatter.Attribute(AngleSharp.Dom.IAttr)">
+            <inheritdoc />
+        </member>
         <member name="T:AngleSharp.Html.Parser.HtmlDomBuilder">
             <summary>
             Represents the Tree construction as specified in
@@ -18766,13 +19207,16 @@
             http://www.w3.org/html/wg/drafts/html/master/syntax.html
             </summary>
         </member>
-        <member name="M:AngleSharp.Html.Parser.HtmlDomBuilder.#ctor(AngleSharp.Html.Dom.HtmlDocument)">
+        <member name="M:AngleSharp.Html.Parser.HtmlDomBuilder.#ctor(AngleSharp.Html.Dom.HtmlDocument,System.String)">
             <summary>
             Creates a new instance of the HTML parser with the specified
             document based on the given source manager.
             </summary>
             <param name="document">
             The document instance to be constructed.
+            </param>
+            <param name="stopAt">
+            The name of the element where the parsing should be stopped.
             </param>
         </member>
         <member name="P:AngleSharp.Html.Parser.HtmlDomBuilder.IsFragmentCase">
@@ -18987,6 +19431,11 @@
             Closes the template element.
             </summary>
         </member>
+        <member name="M:AngleSharp.Html.Parser.HtmlDomBuilder.CloseTemplateMode">
+            <summary>
+            Finished the template mode.
+            </summary>
+        </member>
         <member name="M:AngleSharp.Html.Parser.HtmlDomBuilder.InTableBodyCloseTable(AngleSharp.Html.Parser.Tokens.HtmlTagToken)">
             <summary>
             Closes the table if the section is in table scope.
@@ -19198,6 +19647,11 @@
             <param name="tagName">The tag name to check.</param>
             <returns>True if it is in scope, otherwise false.</returns>
         </member>
+        <member name="M:AngleSharp.Html.Parser.HtmlDomBuilder.IsCustomElementEverywhere(System.String)">
+            <summary>
+            Checks if the given tag name should be considered as a "custom element everywhere".
+            </summary>
+        </member>
         <member name="M:AngleSharp.Html.Parser.HtmlDomBuilder.HandleScript(AngleSharp.Html.Dom.HtmlScriptElement)">
             <summary>
             Runs a script given by the current node.
@@ -19263,6 +19717,12 @@
             </summary>
             <param name="tag">The associated tag token.</param>
             <param name="acknowledgeSelfClosing">Should the self-closing be acknowledged?</param>
+        </member>
+        <member name="M:AngleSharp.Html.Parser.HtmlDomBuilder.AddTemplateElement(AngleSharp.Html.Parser.Tokens.HtmlTagToken)">
+            <summary>
+            Appends a template element.
+            </summary>
+            <param name="tag">The associated tag token.</param>
         </member>
         <member name="M:AngleSharp.Html.Parser.HtmlDomBuilder.AddElement(AngleSharp.Dom.Element,AngleSharp.Html.Parser.Tokens.HtmlTagToken,System.Boolean)">
             <summary>
@@ -19849,7 +20309,7 @@
         </member>
         <member name="F:AngleSharp.Html.Parser.HtmlParseMode.Plaintext">
             <summary>
-            Optional state: Just plain text data (chracters will be parsed matching the given ones).
+            Optional state: Just plain text data (characters will be parsed matching the given ones).
             </summary>
         </member>
         <member name="F:AngleSharp.Html.Parser.HtmlParseMode.Rawtext">
@@ -19916,6 +20376,16 @@
             Parses the string and returns the result.
             </summary>
         </member>
+        <member name="M:AngleSharp.Html.Parser.HtmlParser.ParseHead(System.String)">
+            <summary>
+            Parses the string and returns the head.
+            </summary>
+        </member>
+        <member name="M:AngleSharp.Html.Parser.HtmlParser.ParseFragment(System.IO.Stream,AngleSharp.Dom.IElement)">
+            <summary>
+            Parses the stream and returns the result.
+            </summary>
+        </member>
         <member name="M:AngleSharp.Html.Parser.HtmlParser.ParseFragment(System.String,AngleSharp.Dom.IElement)">
             <summary>
             Parses the string and returns the result.
@@ -19926,12 +20396,27 @@
             Parses the stream and returns the result.
             </summary>
         </member>
+        <member name="M:AngleSharp.Html.Parser.HtmlParser.ParseHead(System.IO.Stream)">
+            <summary>
+            Parses the stream and returns the head.
+            </summary>
+        </member>
         <member name="M:AngleSharp.Html.Parser.HtmlParser.ParseDocumentAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Parses the string asynchronously with option to cancel.
             </summary>
         </member>
         <member name="M:AngleSharp.Html.Parser.HtmlParser.ParseDocumentAsync(System.IO.Stream,System.Threading.CancellationToken)">
+            <summary>
+            Parses the stream asynchronously with option to cancel.
+            </summary>
+        </member>
+        <member name="M:AngleSharp.Html.Parser.HtmlParser.ParseHeadAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Parses the string asynchronously with option to cancel.
+            </summary>
+        </member>
+        <member name="M:AngleSharp.Html.Parser.HtmlParser.ParseHeadAsync(System.IO.Stream,System.Threading.CancellationToken)">
             <summary>
             Parses the stream asynchronously with option to cancel.
             </summary>
@@ -19951,6 +20436,16 @@
             Parses the stream asynchronously.
             </summary>
         </member>
+        <member name="M:AngleSharp.Html.Parser.HtmlParserExtensions.ParseHeadAsync(AngleSharp.Html.Parser.IHtmlParser,System.String)">
+            <summary>
+            Parses the string asynchronously.
+            </summary>
+        </member>
+        <member name="M:AngleSharp.Html.Parser.HtmlParserExtensions.ParseHeadAsync(AngleSharp.Html.Parser.IHtmlParser,System.IO.Stream)">
+            <summary>
+            Parses the stream asynchronously.
+            </summary>
+        </member>
         <member name="M:AngleSharp.Html.Parser.HtmlParserExtensions.ParseDocumentAsync(AngleSharp.Html.Parser.IHtmlParser,AngleSharp.Dom.IDocument)">
             <summary>
             Populates the given document asynchronously.
@@ -19964,6 +20459,20 @@
         <member name="P:AngleSharp.Html.Parser.HtmlParserOptions.IsEmbedded">
             <summary>
             Gets or sets if the document is embedded.
+            </summary>
+        </member>
+        <member name="P:AngleSharp.Html.Parser.HtmlParserOptions.IsAcceptingCustomElementsEverywhere">
+            <summary>
+            Gets or sets if custom elements can be used everywhere. Otherwise,
+            custom elements can only be used in locations specified by the
+            official W3C spec (e.g., in the body).
+            </summary>
+        </member>
+        <member name="P:AngleSharp.Html.Parser.HtmlParserOptions.IsPreservingAttributeNames">
+            <summary>
+            Gets or sets if attribute names should not be normalized.
+            Usually, attribute names will be only seen lower-cased. When this
+            option is activated, the names will be taken as-is.
             </summary>
         </member>
         <member name="P:AngleSharp.Html.Parser.HtmlParserOptions.IsNotSupportingFrames">
@@ -20030,6 +20539,11 @@
         <member name="P:AngleSharp.Html.Parser.HtmlTokenizer.IsAcceptingCharacterData">
             <summary>
             Gets or sets if CDATA sections are accepted.
+            </summary>
+        </member>
+        <member name="P:AngleSharp.Html.Parser.HtmlTokenizer.IsPreservingAttributeNames">
+            <summary>
+            Gets or sets if attribute names should be taken as is.
             </summary>
         </member>
         <member name="P:AngleSharp.Html.Parser.HtmlTokenizer.IsNotConsumingCharacterReferences">
@@ -20113,12 +20627,13 @@
             </summary>
             <param name="c">The next input character.</param>
         </member>
-        <member name="M:AngleSharp.Html.Parser.HtmlTokenizer.AppendCharacterReference(System.Char,System.Char)">
+        <member name="M:AngleSharp.Html.Parser.HtmlTokenizer.AppendCharacterReference(System.Char,System.Char,System.Boolean)">
             <summary>
             See 8.2.4.69 Tokenizing character references
             </summary>
             <param name="c">The next input character.</param>
             <param name="allowedCharacter">The additionally allowed character if there is one.</param>
+            <param name="isAttribute">Determines if we are in attribute parsing. Here, non-terminated refs are allowed.</param>
         </member>
         <member name="M:AngleSharp.Html.Parser.HtmlTokenizer.TagOpen(System.Char)">
             <summary>
@@ -20458,12 +20973,37 @@
             Parses the string and returns the result.
             </summary>
         </member>
+        <member name="M:AngleSharp.Html.Parser.IHtmlParser.ParseFragment(System.IO.Stream,AngleSharp.Dom.IElement)">
+            <summary>
+            Parses the stream and returns the result.
+            </summary>
+        </member>
+        <member name="M:AngleSharp.Html.Parser.IHtmlParser.ParseHead(System.String)">
+            <summary>
+            Parses the string and returns the head.
+            </summary>
+        </member>
+        <member name="M:AngleSharp.Html.Parser.IHtmlParser.ParseHead(System.IO.Stream)">
+            <summary>
+            Parses the stream and returns the head.
+            </summary>
+        </member>
         <member name="M:AngleSharp.Html.Parser.IHtmlParser.ParseDocumentAsync(System.String,System.Threading.CancellationToken)">
             <summary>
             Parses the string asynchronously.
             </summary>
         </member>
         <member name="M:AngleSharp.Html.Parser.IHtmlParser.ParseDocumentAsync(System.IO.Stream,System.Threading.CancellationToken)">
+            <summary>
+            Parses the stream asynchronously.
+            </summary>
+        </member>
+        <member name="M:AngleSharp.Html.Parser.IHtmlParser.ParseHeadAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Parses the string asynchronously.
+            </summary>
+        </member>
+        <member name="M:AngleSharp.Html.Parser.IHtmlParser.ParseHeadAsync(System.IO.Stream,System.Threading.CancellationToken)">
             <summary>
             Parses the stream asynchronously.
             </summary>
@@ -20713,7 +21253,7 @@
         </member>
         <member name="M:AngleSharp.Html.Parser.Tokens.HtmlToken.RemoveNewLine">
             <summary>
-            Removes the a new line in the beginning, if any.
+            Removes the new line in the beginning, if any.
             </summary>
         </member>
         <member name="M:AngleSharp.Html.Parser.Tokens.HtmlToken.AsTag">
@@ -20968,7 +21508,7 @@
             <summary>
             Formats the given text.
             </summary>
-            <param name="text">The text to sanatize.</param>
+            <param name="text">The text to sanitize.</param>
             <returns>The formatted text.</returns>
         </member>
         <member name="M:AngleSharp.IMarkupFormatter.LiteralText(AngleSharp.Dom.ICharacterData)">
@@ -21052,14 +21592,14 @@
             </summary>
             <param name="download">The download to remove.</param>
         </member>
-        <member name="M:AngleSharp.Io.BaseLoader.GetCookie(AngleSharp.Url)">
+        <member name="M:AngleSharp.Io.BaseLoader.GetCookie(AngleSharp.Dom.Url)">
             <summary>
             Gets the cookie string for the given URL.
             </summary>
             <param name="url">The requested URL.</param>
             <returns>The associated cookie string, if any.</returns>
         </member>
-        <member name="M:AngleSharp.Io.BaseLoader.SetCookie(AngleSharp.Url,System.String)">
+        <member name="M:AngleSharp.Io.BaseLoader.SetCookie(AngleSharp.Dom.Url,System.String)">
             <summary>
             Sets the cookie string for the given URL.
             </summary>
@@ -21274,19 +21814,6 @@
             way things should be programmed ...
             </summary>
         </member>
-        <member name="M:AngleSharp.Io.DefaultHttpRequester.RequestState.SetProperty(System.String,System.Object)">
-            <summary>
-            Sets properties of the special headers (described here
-            http://msdn.microsoft.com/en-us/library/system.net.httpwebrequest.headers.aspx)
-            which are not accessible (in general) in this profile
-            (profile78). However, usually they are here and can be modified
-            with reflection. If not they are not set.
-            </summary>
-            <param name="name">The name of the property.</param>
-            <param name="value">
-            The value of the property, which will be set.
-            </param>
-        </member>
         <member name="T:AngleSharp.Io.DefaultResourceLoader">
             <summary>
             Represents the default resource loader. This class can be inherited.
@@ -21341,13 +21868,13 @@
             Represents the arguments to load a document.
             </summary>
         </member>
-        <member name="M:AngleSharp.Io.DocumentRequest.#ctor(AngleSharp.Url)">
+        <member name="M:AngleSharp.Io.DocumentRequest.#ctor(AngleSharp.Dom.Url)">
             <summary>
             Creates a new document request for the given url.
             </summary>
             <param name="target">The resource's url.</param>
         </member>
-        <member name="M:AngleSharp.Io.DocumentRequest.Get(AngleSharp.Url,AngleSharp.Dom.INode,System.String)">
+        <member name="M:AngleSharp.Io.DocumentRequest.Get(AngleSharp.Dom.Url,AngleSharp.Dom.INode,System.String)">
             <summary>
             Creates a GET request for the given target from the optional source
             node and optional referer string.
@@ -21357,7 +21884,7 @@
             <param name="referer">The optional referrer string.</param>
             <returns>The new document request.</returns>
         </member>
-        <member name="M:AngleSharp.Io.DocumentRequest.Post(AngleSharp.Url,System.IO.Stream,System.String,AngleSharp.Dom.INode,System.String)">
+        <member name="M:AngleSharp.Io.DocumentRequest.Post(AngleSharp.Dom.Url,System.IO.Stream,System.String,AngleSharp.Dom.INode,System.String)">
             <summary>
             Creates a POST request for the given target with the provided body
             and encoding type from the optional source node and optional
@@ -21370,7 +21897,7 @@
             <param name="referer">The optional referrer string.</param>
             <returns>The new document request.</returns>
         </member>
-        <member name="M:AngleSharp.Io.DocumentRequest.PostAsPlaintext(AngleSharp.Url,System.Collections.Generic.IDictionary{System.String,System.String})">
+        <member name="M:AngleSharp.Io.DocumentRequest.PostAsPlaintext(AngleSharp.Dom.Url,System.Collections.Generic.IDictionary{System.String,System.String})">
             <summary>
             Creates a POST request for the given target with the fields being
             used to generate the body and encoding type plaintext.
@@ -21379,7 +21906,7 @@
             <param name="fields">The fields to send.</param>
             <returns>The new document request.</returns>
         </member>
-        <member name="M:AngleSharp.Io.DocumentRequest.PostAsUrlencoded(AngleSharp.Url,System.Collections.Generic.IDictionary{System.String,System.String})">
+        <member name="M:AngleSharp.Io.DocumentRequest.PostAsUrlencoded(AngleSharp.Dom.Url,System.Collections.Generic.IDictionary{System.String,System.String})">
             <summary>
             Creates a POST request for the given target with the fields being
             used to generate the body and encoding type url encoded.
@@ -21985,14 +22512,14 @@
             Defines methods to retrieve and store cookies.
             </summary>
         </member>
-        <member name="M:AngleSharp.Io.ICookieProvider.GetCookie(AngleSharp.Url)">
+        <member name="M:AngleSharp.Io.ICookieProvider.GetCookie(AngleSharp.Dom.Url)">
             <summary>
             Gets the cookie value of the given address.
             </summary>
             <param name="url">The origin of the cookie.</param>
             <returns>The value of the cookie.</returns>
         </member>
-        <member name="M:AngleSharp.Io.ICookieProvider.SetCookie(AngleSharp.Url,System.String)">
+        <member name="M:AngleSharp.Io.ICookieProvider.SetCookie(AngleSharp.Dom.Url,System.String)">
             <summary>
             Sets the cookie value for the given address.
             </summary>
@@ -22176,14 +22703,14 @@
             Gets the associated cookie container.
             </summary>
         </member>
-        <member name="M:AngleSharp.Io.MemoryCookieProvider.GetCookie(AngleSharp.Url)">
+        <member name="M:AngleSharp.Io.MemoryCookieProvider.GetCookie(AngleSharp.Dom.Url)">
             <summary>
             Gets the cookie value of the given address.
             </summary>
             <param name="url">The origin of the cookie.</param>
             <returns>The value of the cookie.</returns>
         </member>
-        <member name="M:AngleSharp.Io.MemoryCookieProvider.SetCookie(AngleSharp.Url,System.String)">
+        <member name="M:AngleSharp.Io.MemoryCookieProvider.SetCookie(AngleSharp.Dom.Url,System.String)">
             <summary>
             Sets the cookie value for the given address.
             </summary>
@@ -22455,7 +22982,7 @@
             Cancels the current download, if any.
             </summary>
         </member>
-        <member name="M:AngleSharp.Io.Processors.BaseRequestProcessor.IsDifferentToCurrentDownloadUrl(AngleSharp.Url)">
+        <member name="M:AngleSharp.Io.Processors.BaseRequestProcessor.IsDifferentToCurrentDownloadUrl(AngleSharp.Dom.Url)">
             <summary>
             Checks if the given target is different than the current download.
             </summary>
@@ -22639,7 +23166,7 @@
             Represents the arguments to load a resource.
             </summary>
         </member>
-        <member name="M:AngleSharp.Io.ResourceRequest.#ctor(AngleSharp.Dom.IElement,AngleSharp.Url)">
+        <member name="M:AngleSharp.Io.ResourceRequest.#ctor(AngleSharp.Dom.IElement,AngleSharp.Dom.Url)">
             <summary>
             Creates a new resource request for the given url.
             </summary>
@@ -22714,7 +23241,7 @@
             <param name="request">The request callback.</param>
             <returns>The resulted response.</returns>
         </member>
-        <member name="M:AngleSharp.Io.VirtualResponse.Address(AngleSharp.Url)">
+        <member name="M:AngleSharp.Io.VirtualResponse.Address(AngleSharp.Dom.Url)">
             <summary>
             Sets the location of the response to the given url.
             </summary>
@@ -23741,11 +24268,6 @@
             Gets the height of the video.
             </summary>
         </member>
-        <member name="T:AngleSharp.PortableExtensions">
-            <summary>
-            Extensions for ensuring code portability.
-            </summary>
-        </member>
         <member name="T:AngleSharp.Scripting.IScriptingService">
             <summary>
             Defines the API of an available engine for running scripts provided in
@@ -24006,6 +24528,14 @@
             <param name="c">The character to examine.</param>
             <returns>The result of the test.</returns>
         </member>
+        <member name="M:AngleSharp.Text.CharExtensions.IsCustomElementName(System.Char)">
+            <summary>
+            Gets if the character is actually a character that can be used for building a custom element name.
+            See https://html.spec.whatwg.org/#valid-custom-element-name
+            </summary>
+            <param name="c">The character to examine.</param>
+            <returns>The result of the test.</returns>
+        </member>
         <member name="M:AngleSharp.Text.CharExtensions.IsNameStart(System.Char)">
             <summary>
             Determines if the given character is a valid character for starting
@@ -24066,36 +24596,6 @@
             <param name="c">The character to examine.</param>
             <returns>The result of the test.</returns>
         </member>
-        <member name="M:AngleSharp.Text.CharExtensions.IsOneOf(System.Char,System.Char,System.Char)">
-            <summary>
-            Determines if the given character is one of the two others.
-            </summary>
-            <param name="c">The character to test.</param>
-            <param name="a">The first option.</param>
-            <param name="b">The second option.</param>
-            <returns>The result of the test.</returns>
-        </member>
-        <member name="M:AngleSharp.Text.CharExtensions.IsOneOf(System.Char,System.Char,System.Char,System.Char)">
-            <summary>
-            Determines if the given character is one of the three others.
-            </summary>
-            <param name="c">The character to test.</param>
-            <param name="o1">The first option.</param>
-            <param name="o2">The second option.</param>
-            <param name="o3">The third option.</param>
-            <returns>The result of the test.</returns>
-        </member>
-        <member name="M:AngleSharp.Text.CharExtensions.IsOneOf(System.Char,System.Char,System.Char,System.Char,System.Char)">
-            <summary>
-            Determines if the given character is one of the four others.
-            </summary>
-            <param name="c">The character to test.</param>
-            <param name="o1">The first option.</param>
-            <param name="o2">The second option.</param>
-            <param name="o3">The third option.</param>
-            <param name="o4">The fourth option.</param>
-            <returns>The result of the test.</returns>
-        </member>
         <member name="T:AngleSharp.Text.Punycode">
             <summary>
             Represents a Punycode encoding helper class.
@@ -24139,6 +24639,12 @@
             </summary>
             <param name="sb">The stringbuilder to recycle.</param>
             <returns>The string that is created in the stringbuilder.</returns>
+        </member>
+        <member name="M:AngleSharp.Text.StringBuilderPool.ReturnToPool(System.Text.StringBuilder)">
+            <summary>
+            Returns the given stringbuilder to the pool.
+            </summary>
+            <param name="sb">The stringbuilder to recycle.</param>
         </member>
         <member name="T:AngleSharp.Text.StringExtensions">
             <summary>
@@ -24249,6 +24755,13 @@
             <param name="comparison">The default comparison to use.</param>
             <returns>The status of the check.</returns>
         </member>
+        <member name="M:AngleSharp.Text.StringExtensions.IsCustomElement(System.String)">
+            <summary>
+            Checks if the given string satisfies the rules for a custom element name.
+            </summary>
+            <param name="tag">The current tag name.</param>
+            <returns>True if the string matches a custom element name.</returns>
+        </member>
         <member name="M:AngleSharp.Text.StringExtensions.Is(System.String,System.String)">
             <summary>
             Checks if two strings are exactly equal.
@@ -24316,31 +24829,16 @@
         </member>
         <member name="M:AngleSharp.Text.StringExtensions.StripLeadingTrailingSpaces(System.String)">
             <summary>
-            Strips all leading and trailing space characters from the given string.
-            </summary>
-            <param name="str">The string to examine.</param>
-            <returns>A new string, which excludes the leading and tailing spaces.</returns>
-        </member>
-        <member name="M:AngleSharp.Text.StringExtensions.StripLeadingTrailingSpaces(System.Char[])">
-            <summary>
             Strips all leading and trailing space characters from the given char array.
             </summary>
-            <param name="array">The array of characters to examine.</param>
+            <param name="str">The string to examine.</param>
             <returns>A new string, which excludes the leading and tailing spaces.</returns>
         </member>
         <member name="M:AngleSharp.Text.StringExtensions.SplitWithoutTrimming(System.String,System.Char)">
             <summary>
-            Splits the string with the given char delimiter.
-            </summary>
-            <param name="str">The string to examine.</param>
-            <param name="c">The delimiter character.</param>
-            <returns>The list of tokens.</returns>
-        </member>
-        <member name="M:AngleSharp.Text.StringExtensions.SplitWithoutTrimming(System.Char[],System.Char)">
-            <summary>
             Splits the char array with the given char delimiter.
             </summary>
-            <param name="chars">The char array to examine.</param>
+            <param name="str">The string to examine.</param>
             <param name="c">The delimiter character.</param>
             <returns>The list of tokens.</returns>
         </member>
@@ -24373,7 +24871,7 @@
             Splits the string with the given char delimiter and trims the leading and tailing spaces.
             </summary>
             <param name="str">The string to examine.</param>
-            <param name="c">The delimiter character.</param>
+            <param name="ch">The delimiter character.</param>
             <returns>The list of tokens.</returns>
         </member>
         <member name="M:AngleSharp.Text.StringExtensions.FromHex(System.String)">
@@ -25304,173 +25802,6 @@
             <param name="chr">The integer to examine.</param>
             <returns>True if the integer would indeed be valid.</returns>
         </member>
-        <member name="T:AngleSharp.Url">
-            <summary>
-            Represents an Url class according to RFC3986. This is the base for all
-            internal Url manipulation.
-            </summary>
-        </member>
-        <member name="M:AngleSharp.Url.#ctor(System.String)">
-            <summary>
-            Creates a new Url from the given string.
-            </summary>
-            <param name="address">The address to represent.</param>
-        </member>
-        <member name="M:AngleSharp.Url.#ctor(AngleSharp.Url,System.String)">
-            <summary>
-            Creates a new absolute Url from the relative Url with the given
-            base address.
-            </summary>
-            <param name="baseAddress">The base address to use.</param>
-            <param name="relativeAddress">
-            The relative address to represent.
-            </param>
-        </member>
-        <member name="M:AngleSharp.Url.#ctor(AngleSharp.Url)">
-            <summary>
-            Creates a new Url by copying the other Url.
-            </summary>
-            <param name="address">The address to copy.</param>
-        </member>
-        <member name="M:AngleSharp.Url.Create(System.String)">
-            <summary>
-            Creates an Url from an absolute url transported in a string.
-            </summary>
-            <param name="address">The address to use.</param>
-            <returns>The new Url.</returns>
-        </member>
-        <member name="M:AngleSharp.Url.Convert(System.Uri)">
-            <summary>
-            Creates an Url from an url transported in an Uri.
-            </summary>
-            <param name="uri">The url to use.</param>
-            <returns>The new Url.</returns>
-        </member>
-        <member name="P:AngleSharp.Url.Origin">
-            <summary>
-            Gets the origin of the stored url.
-            </summary>
-        </member>
-        <member name="P:AngleSharp.Url.IsInvalid">
-            <summary>
-            Gets if the URL parsing resulted in an error.
-            </summary>
-        </member>
-        <member name="P:AngleSharp.Url.IsRelative">
-            <summary>
-            Gets if the stored url is relative.
-            </summary>
-        </member>
-        <member name="P:AngleSharp.Url.IsAbsolute">
-            <summary>
-            Gets if the stored url is absolute.
-            </summary>
-        </member>
-        <member name="P:AngleSharp.Url.UserName">
-            <summary>
-            Gets or sets the username for authorization.
-            </summary>
-        </member>
-        <member name="P:AngleSharp.Url.Password">
-            <summary>
-            Gets or sets the password for authorization.
-            </summary>
-        </member>
-        <member name="P:AngleSharp.Url.Data">
-            <summary>
-            Gets the additional stored data of the URL. This is data that could
-            not be assigned.
-            </summary>
-        </member>
-        <member name="P:AngleSharp.Url.Fragment">
-            <summary>
-            Gets or sets the fragment.
-            </summary>
-        </member>
-        <member name="P:AngleSharp.Url.Host">
-            <summary>
-            Gets or sets the host, e.g. "localhost:8800" or "www.w3.org".
-            </summary>
-        </member>
-        <member name="P:AngleSharp.Url.HostName">
-            <summary>
-            Gets or sets the host name, e.g. "localhost" or "www.w3.org".
-            </summary>
-        </member>
-        <member name="P:AngleSharp.Url.Href">
-            <summary>
-            Gets or sets the hyper reference, i.e. the full path.
-            </summary>
-        </member>
-        <member name="P:AngleSharp.Url.Path">
-            <summary>
-            Gets or sets the pathname, e.g. "mypath".
-            </summary>
-        </member>
-        <member name="P:AngleSharp.Url.Port">
-            <summary>
-            Gets or sets the port, e.g. "8800".
-            </summary>
-        </member>
-        <member name="P:AngleSharp.Url.Scheme">
-            <summary>
-            Gets or sets the protocol, e.g. "http".
-            </summary>
-        </member>
-        <member name="P:AngleSharp.Url.Query">
-            <summary>
-            Gets or sets the query.
-            </summary>
-        </member>
-        <member name="M:AngleSharp.Url.GetHashCode">
-            <summary>
-            Serves as the default hash function.
-            </summary>
-            <returns>A hash code for the current url.</returns>
-        </member>
-        <member name="M:AngleSharp.Url.Equals(System.Object)">
-            <summary>
-            Determines whether the specified object is equal to the current
-            object.
-            </summary>
-            <param name="obj">
-            The object to compare with the current object.
-            </param>
-            <returns>
-            True if the object is equal to the current object, otherwise false.
-            </returns>
-        </member>
-        <member name="M:AngleSharp.Url.Equals(AngleSharp.Url)">
-            <summary>
-            Determines whether the specified url is equal to the current
-            object.
-            </summary>
-            <param name="other">
-            The url to compare with the current one.
-            </param>
-            <returns>
-            True if the given url is equal to the current url, otherwise false.
-            </returns>
-        </member>
-        <member name="M:AngleSharp.Url.op_Implicit(AngleSharp.Url)~System.Uri">
-            <summary>
-            Converts the given Url to an Uri.
-            </summary>
-            <param name="value">The Url to convert.</param>
-            <returns>The Uri instance.</returns>
-        </member>
-        <member name="M:AngleSharp.Url.ToString">
-            <summary>
-            Returns a string that represents the current url.
-            </summary>
-            <returns>The currently stored url.</returns>
-        </member>
-        <member name="M:AngleSharp.Url.Serialize">
-            <summary>
-            Returns the string representation of the current location.
-            </summary>
-            <returns>The string that equals the hyper reference.</returns>
-        </member>
         <member name="T:AngleSharp.Xhtml.XhtmlMarkupFormatter">
             <summary>
             Represents the standard XHTML markup formatter.
@@ -25479,6 +25810,25 @@
         <member name="F:AngleSharp.Xhtml.XhtmlMarkupFormatter.Instance">
             <summary>
             An instance of the XhtmlMarkupFormatter.
+            </summary>
+        </member>
+        <member name="M:AngleSharp.Xhtml.XhtmlMarkupFormatter.#ctor">
+            <summary>
+            Default constructor for <see cref="T:AngleSharp.Xhtml.XhtmlMarkupFormatter"/>
+            </summary>
+        </member>
+        <member name="M:AngleSharp.Xhtml.XhtmlMarkupFormatter.#ctor(System.Boolean)">
+            <summary>
+            Constructor for <see cref="T:AngleSharp.Xhtml.XhtmlMarkupFormatter"/>
+            </summary>
+            <param name="emptyTagsToSelfClosing">
+            Specify if empty elements like &lt;div&gt;&lt;/div&gt;
+            should be converted to self-closing ones like &lt;div /&gt;
+            </param>
+        </member>
+        <member name="P:AngleSharp.Xhtml.XhtmlMarkupFormatter.IsSelfClosingEmptyTags">
+            <summary>
+            Gets the status if empty tags will be self-closed or not.
             </summary>
         </member>
         <member name="M:AngleSharp.Xhtml.XhtmlMarkupFormatter.CloseTag(AngleSharp.Dom.IElement,System.Boolean)">

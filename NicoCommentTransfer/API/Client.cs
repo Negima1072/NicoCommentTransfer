@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Org.BouncyCastle.Asn1.Mozilla;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -40,7 +41,7 @@ namespace NicoCommentTransfer.API
         }
         public bool Login(string email, string password)
         {
-            var res = getReq("https://secure.nicovideo.jp/secure/login?site=niconico", "mail=" + email + "&password=" + password);
+            var res = getReq(new Uri("https://secure.nicovideo.jp/secure/login?site=niconico"), new Dictionary<string, string>{ {"mail",email }, {"password",password } });
             if (!res.Contains("メールアドレスまたはパスワードが間違っています。"))
             {
                 var parser = new HtmlParser();
@@ -70,7 +71,7 @@ namespace NicoCommentTransfer.API
             _cookie = new CookieContainer();
             _cookie.Add(new Cookie("user_session", user_session, "", ".nicovideo.jp"));
             _cookie.Add(new Cookie("user_session_secure", user_session_secure, "", ".nicovideo.jp"));
-            var res = getReq("https://www.nicovideo.jp/", "a=a");
+            var res = getReq(new Uri("https://www.nicovideo.jp/"), type:Method.Get);
             if (!res.Contains("メールアドレスまたはパスワードが間違っています。"))
             {
                 var parser = new HtmlParser();
@@ -103,7 +104,7 @@ namespace NicoCommentTransfer.API
                 Assembly assembly = Assembly.GetExecutingAssembly();
                 AssemblyName asmName = assembly.GetName();
                 string version = asmName.Version.ToString();
-                string res = getReq("https://api.github.com/repos/Negima1072/NicoCommentTransfer/releases/latest", "", "GET");
+                string res = getReq(new Uri("https://api.github.com/repos/Negima1072/NicoCommentTransfer/releases/latest"), type:Method.Get);
                 string newversion = ((string)JsonConvert.DeserializeObject<JObject>(res)["name"]).Substring(1);
                 string newversionstr = (string)JsonConvert.DeserializeObject<JObject>(res)["body"];
                 if (version != newversion)
@@ -121,7 +122,7 @@ namespace NicoCommentTransfer.API
         public bool checkIsCommunityFollower()
         {
             string url = "https://com.nicovideo.jp/api/v1/communities/5033742/authority.json";
-            string res = getReq(url, "", "GET");
+            string res = getReq(new Uri(url), type:Method.Get);
             isCommunityFollower = bool.Parse((string)JsonConvert.DeserializeObject<JObject>(res)["data"]["is_member"]);
             return isCommunityFollower;
         }
@@ -144,88 +145,60 @@ namespace NicoCommentTransfer.API
             cookieExpires = BrowserCookieGetter.ToUnixTime(_cookie.GetCookies(new Uri("http://nicovideo.jp"))[0].Expires);
             return cookieExpires;
         }
-        public string getReq(string URI, string parameters, string type = "POST", CookieContainer coookie = null, Dictionary<string, string> header = null, string referer = null, string accept = "*/*")
+        public RestResponse getReqV2(Uri URI, Dictionary<string, string> parameters = null, string jsonStr = null, Method method = Method.Get, CookieContainer cookie = null, Dictionary<string, string> headers = null, string referer = null, string accept = "*/*" )
         {
-            HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(URI);
-            if (coookie != null)
+            var client = new RestClient(URI.Scheme + "://" + URI.Host);
+            var request = new RestRequest(URI.PathAndQuery);
+            request.Method = method;
+            if(parameters != null)
             {
-                _cookie = coookie;
-                req.CookieContainer = coookie;
+                foreach(KeyValuePair<string, string> k in parameters)
+                {
+                    request.AddParameter(k.Key, k.Value, ParameterType.GetOrPost);
+                }
+            }
+            if(jsonStr != null)
+            {
+                request.AddParameter("application/json", jsonStr, ParameterType.RequestBody);
+            }
+            if(cookie == null)
+            {
+                foreach(Cookie c in _cookie.GetCookies(URI))
+                {
+                    client.CookieContainer.Add(c);
+                }
             }
             else
             {
-                req.CookieContainer = _cookie;
-            }
-            req.Accept = accept;
-            req.Method = type;
-            req.KeepAlive = true;
-            req.ContentType = "application/x-www-form-urlencoded";
-            req.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.193 Safari/537.36";
-            if (referer != null)
-            {
-                req.Referer = referer;
-            }
-            if (header != null)
-            {
-                foreach (KeyValuePair<string, string> k in header)
+                foreach (Cookie c in cookie.GetCookies(URI))
                 {
-                    req.Headers.Add(k.Key, k.Value);
+                    client.CookieContainer.Add(c);
                 }
             }
-            byte[] postDataBytes = System.Text.Encoding.ASCII.GetBytes(parameters);
-            req.ContentLength = postDataBytes.Length;
-            if (type == "POST")
+            request.AddHeader("ContentType", "application/x-www-form-urlencoded");
+            request.AddHeader("User-Agent", "NicoCommentTransfter@Negima1072");
+            request.AddHeader("X-Frontend-Id", "6");
+            request.AddHeader("X-Frontend-Version", "0");
+            request.AddHeader("X-Request-With", "https://www.nicovideo.jp");
+            if (headers != null) request.AddHeaders(headers);
+            if (referer != null) request.AddHeader("Referer", referer);
+            if (accept != null) request.AddHeader("Accept", accept);
+            RestResponse response = client.Execute(request);
+            foreach(Cookie c in client.CookieContainer.GetCookies(URI))
             {
-                Stream rdat = req.GetRequestStream();
-                StreamWriter sw = new StreamWriter(rdat);
-                sw.Write(parameters);
-                sw.Close();
-                rdat.Close();
+                _cookie.Add(c);
             }
-            Console.WriteLine(req.Headers.ToString());
-            HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
-            Stream data = resp.GetResponseStream();
-            StreamReader reader = new StreamReader(data, Encoding.UTF8);
-            string s = reader.ReadToEnd();
-            data.Close();
-            resp.Close();
-            reader.Close();
-            return s;
+            return response;
         }
-        public string getReqWithJson(string URI, string json, Dictionary<string, string> header = null, string referer = null)
+        public string getReq(Uri URI, Dictionary<string, string> parameters = null, Method type = Method.Post, CookieContainer coookie = null, Dictionary<string, string> header = null, string referer = null, string accept = "*/*")
         {
-            HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(URI);
-            req.CookieContainer = _cookie;
-            req.Accept = "*/*";
-            req.Method = "POST";
-            req.KeepAlive = true;
-            req.ContentType = "application/json";
-            req.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36";
-            if (header != null)
-            {
-                foreach (KeyValuePair<string, string> k in header)
-                {
-                    req.Headers.Add(k.Key, k.Value);
-                }
-            }
-            if(referer != null)
-            {
-                req.Referer = referer;
-            }
-            Stream rdat = req.GetRequestStream();
-            StreamWriter sw = new StreamWriter(rdat);
-            sw.Write(json);
-            sw.Close();
-            Console.WriteLine(req.Headers.ToString());
-            HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
-            Stream data = resp.GetResponseStream();
-            StreamReader reader = new StreamReader(data, Encoding.UTF8);
-            string s = reader.ReadToEnd();
-            data.Close();
-            resp.Close();
-            reader.Close();
-            rdat.Close();
-            return s;
+            RestResponse response = getReqV2(URI, parameters, null, type, coookie, header, referer, accept);
+            return response.Content;
+        }
+        public string getReqWithJson(Uri URI, string json, Dictionary<string, string> header = null, string referer = null)
+        {
+            RestResponse response = getReqV2(URI, null, json, Method.Post, null, header, referer, "application/json");
+            return response.Content;
         }
         public JToken getReqWithByte(string URI, byte[] data, string referer, string filename, string uuid)
         {
@@ -315,40 +288,10 @@ namespace NicoCommentTransfer.API
                 return null;
             }
         }
-        public string getReqWithForm(string URI, string param, string referer, Dictionary<string, string> header = null)
+        public string getReqWithForm(Uri URI, Dictionary<string, string> param, string referer, Dictionary<string, string> header = null)
         {
-            string s = "";
-            // qquuid = 32d226b6 - 86a2 - 4028 - 95ee - 56a4031e1fee & qqfilename = ba.mp4 & qqtotalfilesize = 22099168 & qqtotalparts = 3
-            try
-            {
-                HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(URI);
-                webRequest.Method = "POST";
-                webRequest.ContentType = "application/x-www-form-urlencoded";
-                webRequest.CookieContainer = _cookie;
-                webRequest.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.193 Safari/537.36";
-                foreach(var h in header)
-                {
-                    webRequest.Headers.Add(h.Key, h.Value);
-                }
-                webRequest.Referer = referer;
-                webRequest.Accept = "application/json";
-                using (Stream postStream = webRequest.GetRequestStream())
-                {
-                    postStream.Write(Encoding.ASCII.GetBytes(param), 0, Encoding.ASCII.GetBytes(param).Length);
-                    postStream.Close();
-                    Console.WriteLine(webRequest.Headers.ToString());
-                    WebResponse response = webRequest.GetResponse();
-                    Stream resStream = response.GetResponseStream();
-                    Encoding encode = Encoding.GetEncoding("utf-8");
-                    StreamReader reader = new StreamReader(resStream, encode);
-                    Console.WriteLine(reader.ReadToEnd());
-                    reader.Close();
-                }
-                return s;
-            }catch(Exception e)
-            {
-                throw new Exception("getReqWithForm", e);
-            }
+            RestResponse response = getReqV2(URI, param, null, Method.Post, null, header, referer, "application/json");
+            return response.Content;
         }
     }
 }
