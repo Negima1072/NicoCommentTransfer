@@ -655,7 +655,7 @@ namespace NicoCommentTransfer.API
             try
             {
                 Thread t = getThreadFromName(label);
-                string res = client.getReq(new Uri("https://nvapi.nicovideo.jp/v1/comment/keys/nicoru?threadId=" + t.Id.ToString() + "&fork=" + t.Fork.ToString()), type:RestSharp.Method.Get);
+                string res = client.getReq(new Uri("https://nvapi.nicovideo.jp/v1/comment/keys/nicoru?threadId=" + t.Id.ToString() + "&fork=" + "main"), type:RestSharp.Method.Get);
                 if (res == null || res == "") return null;
                 else
                 {
@@ -684,7 +684,12 @@ namespace NicoCommentTransfer.API
             {
             nicorusaisho:
                 int r = sendNicoru(client, label, c);
-                if (r != 201 && retry <= 3)
+                if (r == 429)
+                {
+                    System.Threading.Thread.Sleep(60000);
+                    goto nicorusaisho;
+                }
+                else if (r != 201 && retry <= 3)
                 {
                     retry++;
                     System.Threading.Thread.Sleep(2000);
@@ -705,11 +710,11 @@ namespace NicoCommentTransfer.API
                 Thread t = getThreadFromName(label);
                 if (label == "default")
                 {
-
-                    NicoruContentV2 cm = new NicoruContentV2(cd.chat.content, t.Fork, getNicoruTicket(client, label), cd.chat.no, Data.Video.Id);
+                    NicoruContentV2 cm = new NicoruContentV2(cd.chat.content, "main", getNicoruTicket(client, label), cd.chat.no, Data.Video.Id);
                     string jsond = JsonConvert.SerializeObject(cm);
+                    Console.WriteLine("Req:" + jsond);
                     string jsonr = client.getReqWithJson(new Uri("https://nvcomment.nicovideo.jp/v1/threads/"+t.Id+"/nicorus"), jsond);
-                    Console.WriteLine(jsonr);
+                    Console.WriteLine("Res:"+jsonr);
                     JObject lrt = JsonConvert.DeserializeObject<JObject>(jsonr);
                     return (int)lrt["meta"]["status"];
                 }
@@ -1122,14 +1127,14 @@ namespace NicoCommentTransfer.API
         [JsonProperty("content")]
         public string content { get; set; }
         [JsonProperty("fork")]
-        public int fork { get; set; }
+        public string fork { get; set; }
         [JsonProperty("nicoruKey")]
         public string nicorukey { get; set; }
         [JsonProperty("no")]
         public int no { get; set; }
         [JsonProperty("videoId")]
         public string videoId { get; set; }
-        public NicoruContentV2(string c, int f, string n, int no, string v)
+        public NicoruContentV2(string c, string f, string n, int no, string v)
         {
             content = c; fork = f; nicorukey = n; this.no = no; videoId = v;
         }
