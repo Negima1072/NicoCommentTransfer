@@ -655,14 +655,14 @@ namespace NicoCommentTransfer.API
             try
             {
                 Thread t = getThreadFromName(label);
-                string res = client.getReq(new Uri("https://nvapi.nicovideo.jp/v1/nicorukey?language=0&threadId=" + t.Id.ToString() + "&fork=" + t.Fork.ToString() + "&isVideoOwnerNicoruEnabled=true"), type:RestSharp.Method.Get);
+                string res = client.getReq(new Uri("https://nvapi.nicovideo.jp/v1/comment/keys/nicoru?threadId=" + t.Id.ToString() + "&fork=" + t.Fork.ToString()), type:RestSharp.Method.Get);
                 if (res == null || res == "") return null;
                 else
                 {
                     JObject j = JsonConvert.DeserializeObject<JObject>(res);
                     if(j["meta"]["status"].ToString() == "200")
                     {
-                        return j["data"]["nicorukey"].ToString();
+                        return j["data"]["nicoruKey"].ToString();
                     }
                     else
                     {
@@ -684,7 +684,7 @@ namespace NicoCommentTransfer.API
             {
             nicorusaisho:
                 int r = sendNicoru(client, label, c);
-                if (r == 1 && retry <= 3)
+                if (r != 201 && retry <= 3)
                 {
                     retry++;
                     System.Threading.Thread.Sleep(2000);
@@ -694,7 +694,7 @@ namespace NicoCommentTransfer.API
                 {
                     retry = 0;
                 }
-                res += (r == 0) ? 1 : 0;
+                res += (r == 201) ? 1 : 0;
             }
             return res;
         }
@@ -705,17 +705,13 @@ namespace NicoCommentTransfer.API
                 Thread t = getThreadFromName(label);
                 if (label == "default")
                 {
-                    List<object> cm = new List<object>();
-                    cm.Add(new Ping("rs:9"));
-                    cm.Add(new Ping("ps:55"));
-                    cm.Add(new Nicoru(cd.chat.content, 0, t.Fork, cd.chat.no.ToString(), 0, getNicoruTicket(client, label), "1", cd.chat.date.ToString() + "." + cd.chat.date_usec.ToString(), client.isPremium ? 1 : 0, t.Id.ToString(), client.userID));
-                    cm.Add(new Ping("pf:55"));
-                    cm.Add(new Ping("rf:9"));
+
+                    NicoruContentV2 cm = new NicoruContentV2(cd.chat.content, t.Fork, getNicoruTicket(client, label), cd.chat.no, Data.Video.Id);
                     string jsond = JsonConvert.SerializeObject(cm);
-                    string jsonr = client.getReqWithJson(new Uri("https://nvcomment.nicovideo.jp/legacy/api.json/thread"), jsond);
+                    string jsonr = client.getReqWithJson(new Uri("https://nvcomment.nicovideo.jp/v1/threads/"+t.Id+"/nicorus"), jsond);
                     Console.WriteLine(jsonr);
-                    List<JObject> lrt = DeserializeStringToAnyList(jsonr, "nicoru_result");
-                    return int.Parse(lrt[0]["status"].ToString());
+                    JObject lrt = JsonConvert.DeserializeObject<JObject>(jsonr);
+                    return (int)lrt["meta"]["status"];
                 }
                 else
                 {
@@ -1119,6 +1115,24 @@ namespace NicoCommentTransfer.API
         public int Status { get; set; }
         [JsonProperty("errorCode")]
         public string ErrorCode { get; set; }
+    }
+    [JsonObject("nicoru_contentV2")]
+    public class NicoruContentV2
+    {
+        [JsonProperty("content")]
+        public string content { get; set; }
+        [JsonProperty("fork")]
+        public int fork { get; set; }
+        [JsonProperty("nicoruKey")]
+        public string nicorukey { get; set; }
+        [JsonProperty("no")]
+        public int no { get; set; }
+        [JsonProperty("videoId")]
+        public string videoId { get; set; }
+        public NicoruContentV2(string c, int f, string n, int no, string v)
+        {
+            content = c; fork = f; nicorukey = n; this.no = no; videoId = v;
+        }
     }
     [JsonObject("nicoru_content")]
     public class NicoruContent

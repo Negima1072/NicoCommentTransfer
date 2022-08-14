@@ -47,6 +47,7 @@
             </MenuItem>
             <MenuItem Header="ヘルプ(_H)">
                 <MenuItem Header="配布ページを開く(_O)" Click="OpenHaihuPageClick"/>
+                <MenuItem Header="GitHubページを開く(_O)" Click="OpenGitHubPageClick"/>
                 <MenuItem Header="バージョン情報(_V)" Click="HelpVersionClick"/>
             </MenuItem>
         </Menu>

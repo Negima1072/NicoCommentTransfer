@@ -842,5 +842,10 @@ namespace NicoCommentTransfer
                 Console.WriteLine(ex.ToString());
             }
         }
+
+        private void OpenGitHubPageClick(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/Negima1072/NicoCommentTransfer");
+        }
     }
 }
