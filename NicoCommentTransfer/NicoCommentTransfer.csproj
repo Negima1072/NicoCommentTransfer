@@ -172,6 +172,7 @@
     <Compile Include="API\Comment.cs" />
     <Compile Include="API\Config.cs" />
     <Compile Include="API\Movie.cs" />
+    <Compile Include="API\NvComment.cs" />
     <Compile Include="API\OAuthAPI.cs" />
     <Compile Include="API\Upload.cs" />
     <Compile Include="ListSearchWindow.xaml.cs">

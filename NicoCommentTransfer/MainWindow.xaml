@@ -88,18 +88,18 @@
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.Columns>
-                <DataGridCheckBoxColumn Header="＼" Binding="{Binding isChecked}"/>
-                <DataGridTextColumn Header="No" Width="50" Binding="{Binding Number}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Vpos" Width="55" Binding="{Binding Time}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Command" Width="115" Binding="{Binding Command}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Body" Width="200" Binding="{Binding Comment}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="UserID" Width="80" Binding="{Binding UserName}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="isPremium" Width="50"  IsReadOnly="True"/>
+                <DataGridCheckBoxColumn Header="＼" Binding="{Binding IsChecked}"/>
+                <DataGridTextColumn Header="No" Width="50" Binding="{Binding No}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Vpos" Width="55" Binding="{Binding Vpos}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Command" Width="115" Binding="{Binding Commands}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Body" Width="200" Binding="{Binding Body}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="UserID" Width="80" Binding="{Binding UserId}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="isPremium" Width="50" Binding="{Binding IsPremium}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Score" Width="50" Binding="{Binding Score}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Nicoru" Width="30" Binding="{Binding Nicoru}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Posted" Width="100" Binding="{Binding date_str}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Source" Width="50" IsReadOnly="True"/>
-                <DataGridTextColumn Header="ID" Width="100"  IsReadOnly="True"/>
+                <DataGridTextColumn Header="Nicoru" Width="30" Binding="{Binding NicoruCount}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Posted" Width="100" Binding="{Binding PostedAt}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Source" Width="50" Binding="{Binding Source}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="ID" Width="100" Binding="{Binding Id}" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
         <TextBlock HorizontalAlignment="Left" Margin="337,717,0,0" TextWrapping="Wrap" Text="チ:" VerticalAlignment="Top" Width="15" TextAlignment="Right" Padding="0, 0, 0, 0"/>
@@ -119,10 +119,10 @@
                 </ContextMenu>
             </DataGrid.ContextMenu>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="再生" Binding="{Binding Time}" Width="57" IsReadOnly="True"/>
-                <DataGridTextColumn Header="コマンド" Binding="{Binding Command}" Width="150" IsReadOnly="True"/>
-                <DataGridTextColumn Header="コメント" Binding="{Binding Comment}" Width="300" IsReadOnly="True"/>
-                <DataGridTextColumn Header="No." Binding="{Binding Number}" Width="50" IsReadOnly="True"/>
+                <DataGridTextColumn Header="再生" Binding="{Binding Vpos}" Width="57" IsReadOnly="True"/>
+                <DataGridTextColumn Header="コマンド" Binding="{Binding Commands}" Width="150" IsReadOnly="True"/>
+                <DataGridTextColumn Header="コメント" Binding="{Binding Body}" Width="300" IsReadOnly="True"/>
+                <DataGridTextColumn Header="No." Binding="{Binding No}" Width="50" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
         <TextBlock x:Name="acommViewTextBox" HorizontalAlignment="Left" Margin="1090,717,0,0" TextWrapping="Wrap" Text="0コメント" VerticalAlignment="Top" Width="100" TextAlignment="Right" Padding="5, 0, 5, 0"/>

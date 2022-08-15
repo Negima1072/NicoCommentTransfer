@@ -21,8 +21,10 @@ namespace NicoCommentTransfer.API
         public NicoVideo()
         {
             Data = null;
+            nvComment = null;
         }
         public WatchAPIData Data { get; set; }
+        public NvComment nvComment;
         public string GeneratePassword(int length)
         {
             StringBuilder sb = new StringBuilder(length);
@@ -88,7 +90,7 @@ namespace NicoCommentTransfer.API
                     {"_frontendVersion", "0"},
                     {"actionTrackId", actionid}
                 });
-                var parser = new HtmlParser();
+                nvComment = new NvComment(res);
                 Data = JsonConvert.DeserializeObject<AbcResponse<WatchAPIData>>(res).Data;
             }
             catch(Exception e)
@@ -123,14 +125,14 @@ namespace NicoCommentTransfer.API
             }
             return null;
         }
-        public List<CommentData> ConvertChatListToCommentDataList(List<Chat> chats)
+        public List<NvCommentData> ConvertChatListToCommentDataList(List<Chat> chats)
         {
-            List<CommentData> cd = new List<CommentData>();
+            List<NvCommentData> cd = new List<NvCommentData>();
             foreach(Chat c in chats)
             {
                 DateTime dt = CommentData.UnixToDateTime(c.chat.date, c.chat.date_usec);
                 Console.WriteLine("dt:"+dt.ToString("yyyy-MM-dd HH-mm-ss"));
-                cd.Add(new CommentData(c.chat.no, c.chat.vpos, c.chat.user_id, c.chat.mail, c.chat.content, c.chat.nicoru, c.chat.score, dt));
+                cd.Add(new NvCommentData(c.chat.no, c.chat.vpos, c.chat.user_id, c.chat.mail, c.chat.content, c.chat.nicoru, c.chat.score, dt.ToString("yyyy-MM-dd HH:mm:ss")));
             }
             return cd;
         }
@@ -175,7 +177,7 @@ namespace NicoCommentTransfer.API
             }
             return threads;
         }
-        public List<CommentData> getVideoCommentDatas(Client client, string label = "default", bool mymemory = false)
+        public List<NvCommentData> getVideoCommentDatas(Client client, string label = "default", bool mymemory = false)
         {
             try
             {
@@ -187,21 +189,7 @@ namespace NicoCommentTransfer.API
                 {
                     if (label == "default")
                     {
-                        Thread t = getThreadFromName("mymemory");
-                        List<object> cm = new List<object>();
-                        cm.Add(new Ping("rs:0"));
-                        cm.Add(new Ping("ps:0"));
-                        cm.Add(new JThread(t.Id.ToString(), t.Fork, client.userID, Data.Comment.Keys.UserKey));
-                        cm.Add(new Ping("pf:0"));
-                        cm.Add(new Ping("rf:0"));
-                        string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson(new Uri("https://nvcomment.nicovideo.jp/legacy/api.json/thread"), jsond);
-                        lastyomikomijson = jsonr;
-                        Console.WriteLine(jsonr);
-                        Console.WriteLine("k");
-                        List<Chat> c = DeserializeStringToChatsList(jsonr);
-                        c.RemoveAll(s => (mymemory ? false : !(s.chat.deleted != 1 && s.chat.deleted != 2)));
-                        return ConvertChatListToCommentDataList(c);
+                        return nvComment.getForkComments(client, "default");
                     }
                     else
                     {
@@ -213,39 +201,11 @@ namespace NicoCommentTransfer.API
                 {
                     if (label == "default")
                     {
-                        Thread t = getThreadFromName("default");
-                        List<object> cm = new List<object>();
-                        cm.Add(new Ping("rs:0"));
-                        cm.Add(new Ping("ps:0"));
-                        cm.Add(new JThread(t.Id.ToString(), t.Fork, client.userID, Data.Comment.Keys.UserKey, "20090904"));
-                        cm.Add(new Ping("pf:0"));
-                        cm.Add(new Ping("ps:1"));
-                        cm.Add(new JThreadLeaves(t.Id.ToString(), Data.Video.Duration, client.userID, Data.Comment.Keys.UserKey));
-                        cm.Add(new Ping("pf:1"));
-                        cm.Add(new Ping("rf:0"));
-                        string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson(new Uri("https://nvcomment.nicovideo.jp/legacy/api.json/thread"), jsond);
-                        lastyomikomijson = jsonr;
-                        Console.WriteLine(jsonr);
-                        List<Chat> chats = DeserializeStringToChatsList(jsonr);
-                        Console.WriteLine("chats:"+chats.Count.ToString());
-                        List<CommentData> cds = ConvertChatListToCommentDataList(chats);
-                        Console.WriteLine("cds:"+cds.Count.ToString());
-                        return cds;
+                        return nvComment.getForkComments(client, "default");
                     }
                     else if (label == "owner")
                     {
-                        Thread t = getThreadFromName("owner");
-                        List<object> cm = new List<object>();
-                        cm.Add(new Ping("rs:0"));
-                        cm.Add(new Ping("ps:0"));
-                        cm.Add(new JThread(t.Id.ToString(), t.Fork, client.userID, Data.Comment.Keys.UserKey));
-                        cm.Add(new Ping("pf:0"));
-                        cm.Add(new Ping("rf:0"));
-                        string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson(new Uri("https://nvcomment.nicovideo.jp/legacy/api.json/thread"), jsond);
-                        lastyomikomijson = jsonr;
-                        return ConvertChatListToCommentDataList(DeserializeStringToChatsList(jsonr));
+                        return nvComment.getForkComments(client, "owner");
                     }
                     else
                     {
@@ -256,54 +216,15 @@ namespace NicoCommentTransfer.API
                 {
                     if (label == "default")
                     {
-                        Thread t = getThreadFromName("default");
-                        List<object> cm = new List<object>();
-                        cm.Add(new Ping("rs:0"));
-                        cm.Add(new Ping("ps:0"));
-                        cm.Add(new JThread(t.Id.ToString(), t.Fork, client.userID, Data.Comment.Keys.UserKey, "20090904"));
-                        cm.Add(new Ping("pf:0"));
-                        cm.Add(new Ping("ps:1"));
-                        cm.Add(new JThreadLeaves(t.Id.ToString(), Data.Video.Duration, client.userID, Data.Comment.Keys.UserKey));
-                        cm.Add(new Ping("pf:1"));
-                        cm.Add(new Ping("rf:0"));
-                        string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson(new Uri("https://nvcomment.nicovideo.jp/legacy/api.json/thread"), jsond);
-                        lastyomikomijson = jsonr;
-                        return ConvertChatListToCommentDataList(DeserializeStringToChatsList(jsonr));
+                        return nvComment.getForkComments(client, "default");
                     }
                     else if (label == "community")
                     {
-                        Thread t = getThreadFromName("community");
-                        List<object> cm = new List<object>();
-                        var queryDict = HttpUtility.ParseQueryString(client.getReq(new Uri("http://flapi.nicovideo.jp/api/getthreadkey?thread=" + t.Id), type:RestSharp.Method.Get));
-                        string threadkey = queryDict["threadkey"];
-                        string force_184 = queryDict["force_184"];
-                        cm.Add(new Ping("rs:0"));
-                        cm.Add(new Ping("ps:0"));
-                        cm.Add(new JThreadWithThreadKey(t.Id.ToString(), t.Fork, client.userID, threadkey, force_184, "20090904"));
-                        cm.Add(new Ping("pf:0"));
-                        cm.Add(new Ping("ps:1"));
-                        cm.Add(new JThreadLeavesWithThreadKey(t.Id.ToString(), Data.Video.Duration, client.userID, threadkey, force_184));
-                        cm.Add(new Ping("pf:1"));
-                        cm.Add(new Ping("rf:0"));
-                        string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson(new Uri("https://nvcomment.nicovideo.jp/legacy/api.json/thread"), jsond);
-                        lastyomikomijson = jsonr;
-                        return ConvertChatListToCommentDataList(DeserializeStringToChatsList(jsonr));
+                        return nvComment.getForkComments(client, "community");
                     }
                     else if (movietype == "Community" && label == "owner")
                     {
-                        Thread t = getThreadFromName("owner");
-                        List<object> cm = new List<object>();
-                        cm.Add(new Ping("rs:0"));
-                        cm.Add(new Ping("ps:0"));
-                        cm.Add(new JThread(t.Id.ToString(), t.Fork, client.userID, Data.Comment.Keys.UserKey));
-                        cm.Add(new Ping("pf:0"));
-                        cm.Add(new Ping("rf:0"));
-                        string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson(new Uri("https://nvcomment.nicovideo.jp/legacy/api.json/thread"), jsond);
-                        lastyomikomijson = jsonr;
-                        return ConvertChatListToCommentDataList(DeserializeStringToChatsList(jsonr));
+                        return nvComment.getForkComments(client, "owner");
                     }
                     else
                     {
@@ -321,7 +242,7 @@ namespace NicoCommentTransfer.API
                 return null;
             }
         }
-        public List<CommentData> getKakoVideoCommentDatas(Client client, DateTime dt, string label = "default")
+        public List<NvCommentData> getKakoVideoCommentDatas(Client client, DateTime dt, string label = "default")
         {
             try
             {
@@ -333,36 +254,11 @@ namespace NicoCommentTransfer.API
                 {
                     if (label == "default")
                     {
-                        Thread t = getThreadFromName("default");
-                        string waybackkey = getWaybackKey(client, t.Id.ToString());
-                        List<object> cm = new List<object>();
-                        cm.Add(new Ping("rs:0"));
-                        cm.Add(new Ping("ps:0"));
-                        cm.Add(new JKThread(t.Id.ToString(), t.Fork, client.userID, waybackkey, unixtime, "20090904"));
-                        cm.Add(new Ping("pf:0"));
-                        cm.Add(new Ping("ps:1"));
-                        cm.Add(new JKThreadLeaves(t.Id.ToString(), Data.Video.Duration, client.userID, waybackkey, unixtime));
-                        cm.Add(new Ping("pf:1"));
-                        cm.Add(new Ping("rf:0"));
-                        string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson(new Uri("https://nvcomment.nicovideo.jp/legacy/api.json/thread"), jsond);
-                        lastyomikomijson = jsonr;
-                        return ConvertChatListToCommentDataList(DeserializeStringToChatsList(jsonr));
+                        return nvComment.getForkComments(client, "default", unixtime);
                     }
                     else if (label == "owner")
                     {
-                        Thread t = getThreadFromName("owner");
-                        string waybackkey = getWaybackKey(client, t.Id.ToString());
-                        List<object> cm = new List<object>();
-                        cm.Add(new Ping("rs:0"));
-                        cm.Add(new Ping("ps:0"));
-                        cm.Add(new JKThread(t.Id.ToString(), t.Fork, client.userID, waybackkey, unixtime));
-                        cm.Add(new Ping("pf:0"));
-                        cm.Add(new Ping("rf:0"));
-                        string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson(new Uri("https://nvcomment.nicovideo.jp/legacy/api.json/thread"), jsond);
-                        lastyomikomijson = jsonr;
-                        return ConvertChatListToCommentDataList(DeserializeStringToChatsList(jsonr));
+                        return nvComment.getForkComments(client, "owner", unixtime);
                     }
                     else
                     {
@@ -373,57 +269,15 @@ namespace NicoCommentTransfer.API
                 {
                     if (label == "default")
                     {
-                        Thread t = getThreadFromName("default");
-                        string waybackkey = getWaybackKey(client, t.Id.ToString());
-                        List<object> cm = new List<object>();
-                        cm.Add(new Ping("rs:0"));
-                        cm.Add(new Ping("ps:0"));
-                        cm.Add(new JKThread(t.Id.ToString(), t.Fork, client.userID, waybackkey, unixtime, "20090904"));
-                        cm.Add(new Ping("pf:0"));
-                        cm.Add(new Ping("ps:1"));
-                        cm.Add(new JKThreadLeaves(t.Id.ToString(), Data.Video.Duration, client.userID, waybackkey, unixtime));
-                        cm.Add(new Ping("pf:1"));
-                        cm.Add(new Ping("rf:0"));
-                        string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson(new Uri("https://nvcomment.nicovideo.jp/legacy/api.json/thread"), jsond);
-                        lastyomikomijson = jsonr;
-                        return ConvertChatListToCommentDataList(DeserializeStringToChatsList(jsonr));
+                        return nvComment.getForkComments(client, "default", unixtime);
                     }
                     else if (label == "community")
                     {
-                        Thread t = getThreadFromName("community");
-                        string waybackkey = getWaybackKey(client, t.Id.ToString());
-                        List<object> cm = new List<object>();
-                        var queryDict = HttpUtility.ParseQueryString(client.getReq(new Uri("http://flapi.nicovideo.jp/api/getthreadkey?thread=" + t.Id), type:RestSharp.Method.Get));
-                        string threadkey = queryDict["threadkey"];
-                        string force_184 = queryDict["force_184"];
-                        cm.Add(new Ping("rs:0"));
-                        cm.Add(new Ping("ps:0"));
-                        cm.Add(new JKThreadWithThreadKey(t.Id.ToString(), t.Fork, client.userID, threadkey, force_184, waybackkey, unixtime, "20090904"));
-                        cm.Add(new Ping("pf:0"));
-                        cm.Add(new Ping("ps:1"));
-                        cm.Add(new JKThreadLeavesWithThreadKey(t.Id.ToString(), Data.Video.Duration, client.userID, threadkey, force_184, waybackkey, unixtime));
-                        cm.Add(new Ping("pf:1"));
-                        cm.Add(new Ping("rf:0"));
-                        string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson(new Uri("https://nvcomment.nicovideo.jp/legacy/api.json/thread"), jsond);
-                        lastyomikomijson = jsonr;
-                        return ConvertChatListToCommentDataList(DeserializeStringToChatsList(jsonr));
+                        return nvComment.getForkComments(client, "community", unixtime);
                     }
                     else if (movietype == "Community" && label == "owner")
                     {
-                        Thread t = getThreadFromName("owner");
-                        string waybackkey = getWaybackKey(client, t.Id.ToString());
-                        List<object> cm = new List<object>();
-                        cm.Add(new Ping("rs:0"));
-                        cm.Add(new Ping("ps:0"));
-                        cm.Add(new JKThread(t.Id.ToString(), t.Fork, client.userID, waybackkey, unixtime));
-                        cm.Add(new Ping("pf:0"));
-                        cm.Add(new Ping("rf:0"));
-                        string jsond = JsonConvert.SerializeObject(cm);
-                        string jsonr = client.getReqWithJson(new Uri("https://nvcomment.nicovideo.jp/legacy/api.json/thread"), jsond);
-                        lastyomikomijson = jsonr;
-                        return ConvertChatListToCommentDataList(DeserializeStringToChatsList(jsonr));
+                        return nvComment.getForkComments(client, "owner", unixtime);
                     }
                     else
                     {
@@ -927,11 +781,11 @@ namespace NicoCommentTransfer.API
             }
             return 1;
         }
-        public bool checkCommentSizeOK(List<CommentData> cc, int num = 75)
+        public bool checkCommentSizeOK(List<NvCommentData> cc, int num = 75)
         {
             foreach(var cd in cc)
             {
-                if (cd.Comment.Length > num) return false;
+                if (cd.Body.Length > num) return false;
             }
             return true;
         }
@@ -951,7 +805,7 @@ namespace NicoCommentTransfer.API
         {
             Data = getWatchAPIData(client, "https://nicovideo.jp/watch/" + Data.Video.Id);
         }
-        public int sendCommentsFromCommentDataList(Client client, List<CommentData> cc, string label, TextBlock sbbar, bool ToukomeisAdd = true)
+        public int sendCommentsFromCommentDataList(Client client, List<NvCommentData> cc, string label, TextBlock sbbar, bool ToukomeisAdd = true)
         {
             movietype = getMovieType();
             Console.WriteLine("label" + label);
@@ -961,28 +815,20 @@ namespace NicoCommentTransfer.API
             {
                 if (movietype == "YourPrivate" || movietype == "Movie" || movietype == "Community")
                 {
-                    Thread t = getThreadFromName("owner");
-                    string ticket = getSendChatTicket(client, label);
-                    if (ticket == null) return 0;
-                    List<CommentData> ncc;
-                    if (ToukomeisAdd) ncc = getVideoCommentDatas(client, "owner");
-                    else ncc = new List<CommentData>();
-                    foreach (var cd in cc) ncc.Add(cd);
-                    string updtkey = getOwnerThreadUpdataKey(client, t.Id.ToString(), ticket);
-                    JArray requests = new JArray();
-                    requests.Add(JObject.Parse(JsonConvert.SerializeObject(new Ping("rs:1"), Formatting.None)));
-                    foreach(var cd in ncc)
+                    if(cc.Count > 1000)
                     {
-                        requests.Add(JObject.Parse(JsonConvert.SerializeObject(ConvertCommentDataToUpdataItem(cd), Formatting.None)));
+                        MessageBox.Show("送信に失敗しました。" + "コメントが1000件を超えています");
+                        return 0;
                     }
-                    requests.Add(JObject.Parse(JsonConvert.SerializeObject(new Ping("ps:195"), Formatting.None)));
-                    requests.Add(JObject.Parse(JsonConvert.SerializeObject(new UpdateThread(ncc.Count, client.isPremium ? 1 : 0, t.Id.ToString(), ticket, updtkey, client.userID), Formatting.None)));
-                    requests.Add(JObject.Parse(JsonConvert.SerializeObject(new Ping("pf:195"), Formatting.None)));
-                    requests.Add(JObject.Parse(JsonConvert.SerializeObject(new Ping("rf:1"), Formatting.None)));
-                    string jsons = JsonConvert.SerializeObject(requests, Formatting.None);
-                    string res = client.getReqWithJson(new Uri("https://nvcomment.nicovideo.jp/legacy/api.json/thread"), jsons);
-                    int restatus = getUpdateCommentResponseStatus(res);
-                    if(restatus == 0)
+                    //ToukomeisAdd
+                    List<NvCommentData> ccd = new List<NvCommentData>();
+                    if (ToukomeisAdd)
+                    {
+                        nvComment.getForkComments(client, "owner").ForEach((c) => ccd.Add(c));
+                    }
+                    cc.ForEach((c) => ccd.Add(c));
+                    APIResponse<object> res = nvComment.updateOwnerComments(client, ccd);
+                    if(res.Meta.Status == 200)
                     {
                         Application.Current.Dispatcher.Invoke(() =>
                         {
@@ -992,9 +838,7 @@ namespace NicoCommentTransfer.API
                     }
                     else
                     {
-                        MessageBox.Show("送信に失敗しました。" + restatus.ToString());
-                        Console.WriteLine(jsons);
-                        Console.WriteLine(res);
+                        MessageBox.Show("送信に失敗しました。" + res.Meta.ErrorCode);
                         return 0;
                     }
                 }
@@ -1002,23 +846,17 @@ namespace NicoCommentTransfer.API
             }
             else if ((movietype == "YourPrivate" || movietype == "Movie") && label == "default")
             {
-                Thread t = getThreadFromName("default");
-                string ticket = getSendChatTicket(client, label);
-                if (ticket == null) return 0;
                 int numrestat = 0;
                 int sumiSendChatnum = 0;
-                foreach(CommentData cd in cc)
+                foreach(NvCommentData cd in cc)
                 {
                     saisho:
                     System.Threading.Thread.Sleep(5 * 1000);
-                    string req = makeSendCommentRequest(client, t.Id.ToString(), cd.TimePos, cd.Command, cd.Comment, ticket);
-                    string res = client.getReqWithJson(new Uri("https://nvcomment.nicovideo.jp/legacy/api.json/thread"), req);
-                    int restatus = getSendCommentResponseStatus(res);
-                    Data.Video.Count.Comment = getSendCommentResponseNo(res);
+                    APIResponse<NvPostCommentResData> res = nvComment.postComment(client, cd.Body, cd.Commands, NvCommentData.ConvertTime2VposMs(cd.Vpos), "default");
+                    Data.Video.Count.Comment = res.Data.No;
                     if (numrestat <= 3) {
-                        if (restatus == 3) { ticket = getSendChatTicket(client, label); numrestat++; goto saisho; }
-                        else if (restatus == 4) { numrestat++; goto saisho; }
-                        else if (restatus == 0)
+                        if (res.Meta.Status != 201) { numrestat++; goto saisho; }
+                        else if (res.Meta.Status == 201)
                         {
                             numrestat = 0; sumiSendChatnum++;
                             Application.Current.Dispatcher.Invoke(() =>
@@ -1026,8 +864,8 @@ namespace NicoCommentTransfer.API
                                 sbbar.Text = "送信完了 " + sumiSendChatnum.ToString() + "/" + cc.Count.ToString();
                             });
                         }
-                        else { MessageBox.Show("送信に失敗しました。" + restatus.ToString()); break; }
-                    } else { numrestat = 0; MessageBox.Show("送信に失敗しました。"+restatus.ToString()); break; }
+                        else { MessageBox.Show("送信に失敗しました。" + res.Meta.ErrorCode); break; }
+                    } else { numrestat = 0; MessageBox.Show("送信に失敗しました。"+ res.Meta.ErrorCode); break; }
                 }
                 return sumiSendChatnum;
             }
@@ -1035,24 +873,18 @@ namespace NicoCommentTransfer.API
             {
                 if(label == "default")
                 {
-                    Thread t = getThreadFromName("default");
-                    string ticket = getSendChatTicket(client, label);
-                    if (ticket == null) return 0;
                     int numrestat = 0;
                     int sumiSendChatnum = 0;
-                    foreach (CommentData cd in cc)
+                    foreach (NvCommentData cd in cc)
                     {
                         saisho2:
                         System.Threading.Thread.Sleep(5 * 1000);
-                        string req = makeSendCommentRequest(client, t.Id.ToString(), cd.TimePos, cd.Command, cd.Comment, ticket);
-                        string res = client.getReqWithJson(new Uri("https://nvcomment.nicovideo.jp/legacy/api.json/thread"), req);
-                        int restatus = getSendCommentResponseStatus(res);
-                        Data.Video.Count.Comment = getSendCommentResponseNo(res);
+                        APIResponse<NvPostCommentResData> res = nvComment.postComment(client, cd.Body, cd.Commands, NvCommentData.ConvertTime2VposMs(cd.Vpos), "default");
+                        Data.Video.Count.Comment = res.Data.No;
                         if (numrestat <= 3)
                         {
-                            if (restatus == 3) { ticket = getSendChatTicket(client, label); numrestat++; goto saisho2; }
-                            else if (restatus == 4) { numrestat++; goto saisho2; }
-                            else if (restatus == 0)
+                            if (res.Meta.Status != 201) { numrestat++; goto saisho2; }
+                            else if (res.Meta.Status == 201)
                             {
                                 numrestat = 0;
                                 sumiSendChatnum++;
@@ -1061,32 +893,26 @@ namespace NicoCommentTransfer.API
                                     sbbar.Text = "送信完了 " + sumiSendChatnum.ToString() + "/" + cc.Count.ToString();
                                 });
                             }
-                            else { MessageBox.Show("送信に失敗しました。" + restatus.ToString()); break; }
+                            else { MessageBox.Show("送信に失敗しました。" + res.Meta.ErrorCode); break; }
                         }
-                        else { numrestat = 0; MessageBox.Show("送信に失敗しました。" + restatus.ToString()); break; }
+                        else { numrestat = 0; MessageBox.Show("送信に失敗しました。" + res.Meta.ErrorCode); break; }
                     }
                     return sumiSendChatnum;
                 }
                 else if (label == "community")
                 {
-                    Thread t = getThreadFromName("community");
-                    string ticket = getSendChatTicket(client, label);
-                    if (ticket == null) return 0;
                     int numrestat = 0;
                     int sumiSendChatnum = 0;
-                    foreach (CommentData cd in cc)
+                    foreach (NvCommentData cd in cc)
                     {
                         saisho3:
                         System.Threading.Thread.Sleep(5 * 1000);
-                        string req = makeSendCommentRequest(client, t.Id.ToString(), cd.TimePos, cd.Command, cd.Comment, ticket);
-                        string res = client.getReqWithJson(new Uri("https://nvcomment.nicovideo.jp/legacy/api.json/thread"), req);
-                        int restatus = getSendCommentResponseStatus(res);
-                        Data.Video.Count.Comment = getSendCommentResponseNo(res);
+                        APIResponse<NvPostCommentResData> res = nvComment.postComment(client, cd.Body, cd.Commands, NvCommentData.ConvertTime2VposMs(cd.Vpos), "community");
+                        Data.Video.Count.Comment = res.Data.No;
                         if (numrestat <= 3)
                         {
-                            if (restatus == 3) { ticket = getSendChatTicket(client, label); numrestat++; goto saisho3; }
-                            else if (restatus == 4) { updataMovieData(client); numrestat++; goto saisho3; }
-                            else if (restatus == 0)
+                            if (res.Meta.Status != 201) { numrestat++; goto saisho3; }
+                            else if (res.Meta.Status == 201)
                             {
                                 numrestat = 0;
                                 sumiSendChatnum++;
@@ -1095,9 +921,9 @@ namespace NicoCommentTransfer.API
                                     sbbar.Text = "送信完了 " + sumiSendChatnum.ToString() + "/" + cc.Count.ToString();
                                 });
                             }
-                            else { MessageBox.Show("送信に失敗しました。" + restatus.ToString()); break; }
+                            else { MessageBox.Show("送信に失敗しました。" + res.Meta.ErrorCode); break; }
                         }
-                        else { numrestat = 0; MessageBox.Show("送信に失敗しました。" + restatus.ToString()); break; }
+                        else { numrestat = 0; MessageBox.Show("送信に失敗しました。" + res.Meta.ErrorCode); break; }
                     }
                     return sumiSendChatnum;
                 }

@@ -195,9 +195,9 @@ namespace NicoCommentTransfer.API
             RestResponse response = getReqV2(URI, parameters, null, type, coookie, header, referer, accept);
             return response.Content;
         }
-        public string getReqWithJson(Uri URI, string json, Dictionary<string, string> header = null, string referer = null)
+        public string getReqWithJson(Uri URI, string json, Dictionary<string, string> header = null, string referer = null, Method type = Method.Post)
         {
-            RestResponse response = getReqV2(URI, null, json, Method.Post, null, header, referer, "application/json");
+            RestResponse response = getReqV2(URI, null, json, type, null, header, referer, "application/json");
             return response.Content;
         }
         public JToken getReqWithByte(string URI, byte[] data, string referer, string filename, string uuid)

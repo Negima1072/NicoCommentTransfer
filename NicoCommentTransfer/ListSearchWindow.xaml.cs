@@ -41,11 +41,11 @@ namespace NicoCommentTransfer
                 {
                     int r = ((MainWindow)this.Owner).bcommList.checkComments(
                     ((MainWindow)this.Owner).bcommList.Find(s =>
-                        ((UserTB.Text == null || UserTB.Text == "") ? true : (((bool)UserCB.IsChecked) ? s.UserName == UserTB.Text : Regex.IsMatch(s.UserName == null ? "" : s.UserName, UserTB.Text))) &&
-                        ((CommandTB.Text == null || CommandTB.Text == "") ? true : (((bool)CommandCB.IsChecked) ? s.Command == CommandTB.Text : Regex.IsMatch(s.Command == null ? "" : s.Command, CommandTB.Text))) &&
-                        ((CommentTB.Text == null || CommentTB.Text == "") ? true : (((bool)CommentCB.IsChecked) ? s.Comment == CommentTB.Text : Regex.IsMatch(s.Comment == null ? "" : s.Comment, CommentTB.Text))) &&
-                        ((TimeTB.Text == null || TimeTB.Text == "") ? true : (TimeTB.Text.Contains("-") ? (s.TimePos >= CommentData.ConvertTimeToVpos(TimeTB.Text.Split('-')[0]) && s.TimePos <= CommentData.ConvertTimeToVpos(TimeTB.Text.Split('-')[1])) : s.Time == TimeTB.Text)) &&
-                        ((NicoruTB.Text == null || NicoruTB.Text == "") ? true : (TimeTB.Text.Contains("-") ? (s.TimePos >= int.Parse(NicoruTB.Text.Split('-')[0]) && s.TimePos <= int.Parse(NicoruTB.Text.Split('-')[1])) : s.Nicoru == int.Parse(NicoruTB.Text)))
+                        ((UserTB.Text == null || UserTB.Text == "") ? true : (((bool)UserCB.IsChecked) ? s.UserId == UserTB.Text : Regex.IsMatch(s.UserId == null ? "" : s.UserId, UserTB.Text))) &&
+                        ((CommandTB.Text == null || CommandTB.Text == "") ? true : (((bool)CommandCB.IsChecked) ? s.Commands == CommandTB.Text : Regex.IsMatch(s.Commands == null ? "" : s.Commands, CommandTB.Text))) &&
+                        ((CommentTB.Text == null || CommentTB.Text == "") ? true : (((bool)CommentCB.IsChecked) ? s.Body == CommentTB.Text : Regex.IsMatch(s.Body == null ? "" : s.Body, CommentTB.Text))) &&
+                        ((TimeTB.Text == null || TimeTB.Text == "") ? true : (TimeTB.Text.Contains("-") ? (s.getVposMs() >= CommentData.ConvertTimeToVpos(TimeTB.Text.Split('-')[0]) && s.getVposMs() <= CommentData.ConvertTimeToVpos(TimeTB.Text.Split('-')[1])) : s.Vpos == TimeTB.Text)) &&
+                        ((NicoruTB.Text == null || NicoruTB.Text == "") ? true : (TimeTB.Text.Contains("-") ? (s.getVposMs() >= int.Parse(NicoruTB.Text.Split('-')[0]) && s.getVposMs() <= int.Parse(NicoruTB.Text.Split('-')[1])) : s.NicoruCount == int.Parse(NicoruTB.Text)))
                     ));
                     MessageBox.Show("成功しました。\nChecked element:" + r.ToString(), "検索", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
@@ -64,11 +64,11 @@ namespace NicoCommentTransfer
                 try
                 {
                     int r = ((MainWindow)this.Owner).bcommList.removeAll(s =>
-                        ((UserTB.Text == null || UserTB.Text == "") ? true : (((bool)UserCB.IsChecked) ? s.UserName == UserTB.Text : Regex.IsMatch(s.UserName == null ? "" : s.UserName, UserTB.Text))) &&
-                        ((CommandTB.Text == null || CommandTB.Text == "") ? true : (((bool)CommandCB.IsChecked) ? s.Command == CommandTB.Text : Regex.IsMatch(s.Command == null ? "" : s.Command, CommandTB.Text))) &&
-                        ((CommentTB.Text == null || CommentTB.Text == "") ? true : (((bool)CommentCB.IsChecked) ? s.Comment == CommentTB.Text : Regex.IsMatch(s.Comment == null ? "" : s.Comment, CommentTB.Text))) &&
-                        (((TimeTB.Text == null || TimeTB.Text == "") ? true : (TimeTB.Text.Contains("-") ? (s.TimePos >= CommentData.ConvertTimeToVpos(TimeTB.Text.Split('-')[0]) && s.TimePos <= CommentData.ConvertTimeToVpos(TimeTB.Text.Split('-')[1])) : s.Time == TimeTB.Text))) &&
-                        (((NicoruTB.Text == null || NicoruTB.Text == "") ? true : (TimeTB.Text.Contains("-") ? (s.TimePos >= int.Parse(NicoruTB.Text.Split('-')[0]) && s.TimePos <= int.Parse(NicoruTB.Text.Split('-')[1])) : s.Nicoru == int.Parse(NicoruTB.Text))))
+                        ((UserTB.Text == null || UserTB.Text == "") ? true : (((bool)UserCB.IsChecked) ? s.UserId == UserTB.Text : Regex.IsMatch(s.UserId == null ? "" : s.UserId, UserTB.Text))) &&
+                        ((CommandTB.Text == null || CommandTB.Text == "") ? true : (((bool)CommandCB.IsChecked) ? s.Commands == CommandTB.Text : Regex.IsMatch(s.Commands == null ? "" : s.Commands, CommandTB.Text))) &&
+                        ((CommentTB.Text == null || CommentTB.Text == "") ? true : (((bool)CommentCB.IsChecked) ? s.Body == CommentTB.Text : Regex.IsMatch(s.Body == null ? "" : s.Body, CommentTB.Text))) &&
+                        ((TimeTB.Text == null || TimeTB.Text == "") ? true : (TimeTB.Text.Contains("-") ? (s.getVposMs() >= CommentData.ConvertTimeToVpos(TimeTB.Text.Split('-')[0]) && s.getVposMs() <= CommentData.ConvertTimeToVpos(TimeTB.Text.Split('-')[1])) : s.Vpos == TimeTB.Text)) &&
+                        ((NicoruTB.Text == null || NicoruTB.Text == "") ? true : (TimeTB.Text.Contains("-") ? (s.getVposMs() >= int.Parse(NicoruTB.Text.Split('-')[0]) && s.getVposMs() <= int.Parse(NicoruTB.Text.Split('-')[1])) : s.NicoruCount == int.Parse(NicoruTB.Text)))
                     );
                     //CommentData f = ((MainWindow)this.Owner).bcommList.Data[0];
                     //Console.WriteLine(((UserTB.Text == null || UserTB.Text == "") ? true : (((bool)UserCB.IsChecked) ? f.UserName == UserTB.Text : Regex.IsMatch(f.UserName, UserTB.Text))).ToString() + "/" +
@@ -92,12 +92,12 @@ namespace NicoCommentTransfer
             {
                 try
                 {
-                    Predicate<CommentData> pcd = (s =>
-                        ((UserTB.Text == null || UserTB.Text == "") ? true : (((bool)UserCB.IsChecked) ? s.UserName == UserTB.Text : Regex.IsMatch(s.UserName == null ? "" : s.UserName, UserTB.Text))) &&
-                        ((CommandTB.Text == null || CommandTB.Text == "") ? true : (((bool)CommandCB.IsChecked) ? s.Command == CommandTB.Text : Regex.IsMatch(s.Command == null ? "" : s.Command, CommandTB.Text))) &&
-                        ((CommentTB.Text == null || CommentTB.Text == "") ? true : (((bool)CommentCB.IsChecked) ? s.Comment == CommentTB.Text : Regex.IsMatch(s.Comment == null ? "" : s.Comment, CommentTB.Text))) &&
-                        (((TimeTB.Text == null || TimeTB.Text == "") ? true : (TimeTB.Text.Contains("-") ? (s.TimePos >= CommentData.ConvertTimeToVpos(TimeTB.Text.Split('-')[0]) && s.TimePos <= CommentData.ConvertTimeToVpos(TimeTB.Text.Split('-')[1])) : s.Time == TimeTB.Text))) &&
-                        (((NicoruTB.Text == null || NicoruTB.Text == "") ? true : (TimeTB.Text.Contains("-") ? (s.TimePos >= int.Parse(NicoruTB.Text.Split('-')[0]) && s.TimePos <= int.Parse(NicoruTB.Text.Split('-')[1])) : s.Nicoru == int.Parse(NicoruTB.Text))))
+                    Predicate<NvCommentData> pcd = (s =>
+                        ((UserTB.Text == null || UserTB.Text == "") ? true : (((bool)UserCB.IsChecked) ? s.UserId == UserTB.Text : Regex.IsMatch(s.UserId == null ? "" : s.UserId, UserTB.Text))) &&
+                        ((CommandTB.Text == null || CommandTB.Text == "") ? true : (((bool)CommandCB.IsChecked) ? s.Commands == CommandTB.Text : Regex.IsMatch(s.Commands == null ? "" : s.Commands, CommandTB.Text))) &&
+                        ((CommentTB.Text == null || CommentTB.Text == "") ? true : (((bool)CommentCB.IsChecked) ? s.Body == CommentTB.Text : Regex.IsMatch(s.Body == null ? "" : s.Body, CommentTB.Text))) &&
+                        ((TimeTB.Text == null || TimeTB.Text == "") ? true : (TimeTB.Text.Contains("-") ? (s.getVposMs() >= CommentData.ConvertTimeToVpos(TimeTB.Text.Split('-')[0]) && s.getVposMs() <= CommentData.ConvertTimeToVpos(TimeTB.Text.Split('-')[1])) : s.Vpos == TimeTB.Text)) &&
+                        ((NicoruTB.Text == null || NicoruTB.Text == "") ? true : (TimeTB.Text.Contains("-") ? (s.getVposMs() >= int.Parse(NicoruTB.Text.Split('-')[0]) && s.getVposMs() <= int.Parse(NicoruTB.Text.Split('-')[1])) : s.NicoruCount == int.Parse(NicoruTB.Text)))
                     );
                     int r = ((MainWindow)this.Owner).acommList.addCommentDatas(((MainWindow)this.Owner).bcommList.Find(pcd), (bool)((MainWindow)this.Owner).isAddPatissire.IsChecked, (bool)((MainWindow)this.Owner).isAddCa.IsChecked);
                     if ((bool)((MainWindow)this.Owner).isMoveMigiRemoven.IsChecked) ((MainWindow)this.Owner).bcommList.removeAll(pcd);

@@ -29,8 +29,8 @@ namespace NicoCommentTransfer
     /// </summary>
     public partial class MainWindow : Window
     {
-        public CommentDataList bcommList;
-        public CommentDataList acommList;
+        public NvCommentDataList bcommList;
+        public NvCommentDataList acommList;
         public NicoVideo bVideoData = new NicoVideo();
         public NicoVideo aVideoData = new NicoVideo();
         public Client client;
@@ -53,8 +53,8 @@ namespace NicoCommentTransfer
                 }
             }
             InitializeComponent();
-            bcommList = new CommentDataList();
-            acommList = new CommentDataList();
+            bcommList = new NvCommentDataList();
+            acommList = new NvCommentDataList();
             bcommView.ItemsSource = bcommList.Data;
             acommView.ItemsSource = acommList.Data;
             bcommList.ItemPropertyChanged += new BoolEventHandler(changeCheckedListB);
@@ -200,7 +200,7 @@ namespace NicoCommentTransfer
                         List<TokomeEditorJsonCommentContainer> commentContainers = JsonConvert.DeserializeObject<List<TokomeEditorJsonCommentContainer>>(filedata);
                         for (int i = 1; i <= commentContainers.Count; i++)
                         {
-                            bcommList.addCommentData(maenobcommdatacount + i, CommentData.ConvertTimeToVpos(commentContainers[i - 1].Time), System.IO.Path.GetFileName(filename), commentContainers[i - 1].Command, commentContainers[i - 1].Comment, 0, 0, DateTime.Now.ToLocalTime());
+                            bcommList.addCommentData(maenobcommdatacount + i, CommentData.ConvertTimeToVpos(commentContainers[i - 1].Time), System.IO.Path.GetFileName(filename), commentContainers[i - 1].Command, commentContainers[i - 1].Comment, 0, 0, DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss"));
                         }
                     }
                     catch (Exception e)
@@ -228,7 +228,7 @@ namespace NicoCommentTransfer
                                 if (c == '[') commandMode = 1;
                             }
                             comment = comment.Replace("[03]", " ").Replace("<br>", "\n").Replace("[tb]", Convert.ToChar(Convert.ToInt32("0009", 16)).ToString());
-                            bcommList.addCommentData(maenobcommdatacount + i, 0, System.IO.Path.GetFileName(filename), command, comment, 0, 0, DateTime.Now.ToLocalTime());
+                            bcommList.addCommentData(maenobcommdatacount + i, 0, System.IO.Path.GetFileName(filename), command, comment, 0, 0, DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss"));
                         }
                     }
                     catch (Exception e)
@@ -242,10 +242,10 @@ namespace NicoCommentTransfer
                 {
                     try
                     {
-                        List<CommentData> jsondt = JsonConvert.DeserializeObject<List<CommentData>>(filedata);
-                        foreach (CommentData jobj in jsondt)
+                        List<NvCommentData> jsondt = JsonConvert.DeserializeObject<List<NvCommentData>>(filedata);
+                        foreach (NvCommentData jobj in jsondt)
                         {
-                            jobj.Number = maenobcommdatacount + jobj.Number;
+                            jobj.No = maenobcommdatacount + jobj.No;
                             bcommList.addCommentData(jobj);
                         }
                     }
@@ -259,10 +259,10 @@ namespace NicoCommentTransfer
                 else if (selectindex == 3/*Chats-JSON*/) {
                     try
                     {
-                        List<CommentData> jsondt = bVideoData.ConvertChatListToCommentDataList(bVideoData.DeserializeStringToChatsList(filedata));
-                        foreach (CommentData jobj in jsondt)
+                        List<NvCommentData> jsondt = bVideoData.ConvertChatListToCommentDataList(bVideoData.DeserializeStringToChatsList(filedata));
+                        foreach (NvCommentData jobj in jsondt)
                         {
-                            jobj.Number = maenobcommdatacount + jobj.Number;
+                            jobj.No = maenobcommdatacount + jobj.No;
                             bcommList.addCommentData(jobj);
                         }
                     }
@@ -443,7 +443,7 @@ namespace NicoCommentTransfer
             if (AddCommTimeBox.Text != null && AddCommTimeBox.Text != "" &&
                 AddCommTextBox.Text != null && AddCommTextBox.Text != "")
             {
-                List<CommentData> cd = new List<CommentData> { new CommentData(acommList.getCount() + 1, CommentData.ConvertTimeToVpos(AddCommTimeBox.Text), "", AddCommCommandBox.Text, AddCommTextBox.Text, 0, 0, DateTime.Now.ToLocalTime()) };
+                List<NvCommentData> cd = new List<NvCommentData> { new NvCommentData(acommList.getCount() + 1, NvCommentData.ConvertTime2VposMs(AddCommTimeBox.Text), "", AddCommCommandBox.Text, AddCommTextBox.Text, 0, 0, DateTime.Now.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss")) };
                 acommList.addCommentDatas(cd, (bool)isAddPatissire.IsChecked, (bool)isAddCa.IsChecked, (bool)isAdd184.IsChecked);
                 AddCommTimeBox.Text = "";
                 AddCommCommandBox.Text = "";
@@ -469,7 +469,8 @@ namespace NicoCommentTransfer
                     else if(SorTComboBox.SelectedIndex == 3) label = "community";
                     bVideoData.getWatchAPIData(client, movieurl);
                     SBMessageTB.Text = (bVideoData.Data != null) ? bVideoData.Data.Video.Title : "";
-                    List<CommentData> cd = bVideoData.getVideoCommentDatas(client, label, (bool)GetMyMemoryHidden.IsChecked);
+                    List<NvCommentData> cd = bVideoData.nvComment.getForkComments(client, label);
+                        //bVideoData.getVideoCommentDatas(client, label, (bool)GetMyMemoryHidden.IsChecked);
                     if (cd != null) {
                         bcommList.addCommentDatas(cd);
                         MessageBox.Show("コメントを追加しました。\nコメント数:" + cd.Count.ToString(), "Add Comments", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -702,7 +703,7 @@ namespace NicoCommentTransfer
                     bVideoData.getWatchAPIData(client, movieurl);
                     SBMessageTB.Text = (bVideoData.Data != null) ? bVideoData.Data.Video.Title : "";
                     DateTime dt = DateTime.Parse(kakodate);
-                    List<CommentData> cd = bVideoData.getKakoVideoCommentDatas(client, dt, label);
+                    List<NvCommentData> cd = bVideoData.getKakoVideoCommentDatas(client, dt, label);
                     if (cd != null)
                     {
                         bcommList.addCommentDatas(cd);
