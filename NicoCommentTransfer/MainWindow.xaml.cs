@@ -34,7 +34,7 @@ namespace NicoCommentTransfer
         public NicoVideo bVideoData = new NicoVideo();
         public NicoVideo aVideoData = new NicoVideo();
         public Client client;
-        public NicoOAuth oauth;
+        //public NicoOAuth oauth;
         Config config;
         public MainWindow()
         {
@@ -76,8 +76,8 @@ namespace NicoCommentTransfer
                     config.CookieExpires = login.expiresunixtime;
                     config.userID = login.userid;
                     config.isPremium = login.isPremium;
-                    config.authToken = login.auth_token;
-                    oauth = login.oauth;
+                    //config.authToken = login.auth_token;
+                    //oauth = login.oauth;
                     client.LoginCookie(login.user_session, login.user_session_secure);
                     MessageBox.Show("ログインしました。", "Login", MessageBoxButton.OK, MessageBoxImage.Information);
                     LoginAtoShitaniUtusuShori();
@@ -111,8 +111,8 @@ namespace NicoCommentTransfer
                         config.CookieExpires = login.expiresunixtime;
                         config.userID = login.userid;
                         config.isPremium = login.isPremium;
-                        config.authToken = login.auth_token;
-                        oauth = login.oauth;
+                        //config.authToken = login.auth_token;
+                        //oauth = login.oauth;
                         client.LoginCookie(login.user_session, login.user_session_secure);
                         MessageBox.Show("ログインしました。", "Login", MessageBoxButton.OK, MessageBoxImage.Information);
                         LoginAtoShitaniUtusuShori();

@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\nn\source\repos\NicoCommentTransfer\NicoCommentTransfer\obj\Debug\
+C:\Users\negi\Documents\GitHub\negima1072\NicoCommentTransfer\NicoCommentTransfer\obj\Debug\
 NicoCommentTransfer
 none
 false
 DEBUG;TRACE
-C:\Users\nn\source\repos\NicoCommentTransfer\NicoCommentTransfer\App.xaml
-8-345638172
+C:\Users\negi\Documents\GitHub\negima1072\NicoCommentTransfer\NicoCommentTransfer\App.xaml
+101538177386
+3-1702575574
+23-1232577698
+38276419580
+ListSearchWindow.xaml;LoginOAuthWindow.xaml;LoginWindow.xaml;MainWindow.xaml;NamaHozonOption.xaml;Themes\Generic.xaml;UserControls\TextBoxV.xaml;UserControls\TitleBar.xaml;SetTime.xaml;ZurasuTime.xaml;
 
-181796678917
-75772503948
-ListSearchWindow.xaml;LoginWindow.xaml;MainWindow.xaml;Themes\Generic.xaml;UserControls\TextBoxV.xaml;UserControls\TitleBar.xaml;SetTime.xaml;ZurasuTime.xaml;
-
-False
+True
 

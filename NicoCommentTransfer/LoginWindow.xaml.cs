@@ -109,7 +109,7 @@ namespace NicoCommentTransfer
                 UserImage.Source = imageSource;
                 SessionExpiresTB.Text = BrowserCookieGetter.ConvertUnixToDateTime(expiresunixtime).ToString("yyyy-MM-dd hh:mm");
                 ((MainWindow)this.Owner).client.cookieExpires = long.Parse(d[2]);
-                userid = ((MainWindow)this.Owner).client.userID; ;
+                userid = ((MainWindow)this.Owner).client.userID;
                 isPremium = ((MainWindow)this.Owner).client.isPremium;
                 OKBtn.IsEnabled = true;
             }

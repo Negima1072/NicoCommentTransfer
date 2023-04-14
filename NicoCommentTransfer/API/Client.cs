@@ -41,7 +41,7 @@ namespace NicoCommentTransfer.API
         }
         public bool Login(string email, string password)
         {
-            var res = getReq(new Uri("https://secure.nicovideo.jp/secure/login?site=niconico"), new Dictionary<string, string>{ {"mail",email }, {"password",password } });
+            var res = getReq(new Uri("https://account.nicovideo.jp/login/redirector?site=niconico&sec=header_pc&next_url=%2F"), new Dictionary<string, string>{ { "mail_tel", email }, {"password",password } });
             if (!res.Contains("メールアドレスまたはパスワードが間違っています。"))
             {
                 var parser = new HtmlParser();
@@ -163,17 +163,19 @@ namespace NicoCommentTransfer.API
             }
             if(cookie == null)
             {
-                foreach(Cookie c in _cookie.GetCookies(URI))
+                request.CookieContainer = _cookie;
+                /*foreach (Cookie c in _cookie.GetCookies(URI))
                 {
-                    client.CookieContainer.Add(c);
-                }
+                    request.CookieContainer.Add(c);
+                }*/
             }
             else
             {
-                foreach (Cookie c in cookie.GetCookies(URI))
+                request.CookieContainer = _cookie;
+                /*foreach (Cookie c in cookie.GetCookies(URI))
                 {
-                    client.CookieContainer.Add(c);
-                }
+                    request.CookieContainer.Add(c);
+                }*/
             }
             request.AddHeader("ContentType", "application/x-www-form-urlencoded");
             request.AddHeader("User-Agent", "NicoCommentTransfter@Negima1072");
@@ -184,7 +186,7 @@ namespace NicoCommentTransfer.API
             if (referer != null) request.AddHeader("Referer", referer);
             if (accept != null) request.AddHeader("Accept", accept);
             RestResponse response = client.Execute(request);
-            foreach(Cookie c in client.CookieContainer.GetCookies(URI))
+            foreach(Cookie c in request.CookieContainer.GetCookies(URI))
             {
                 _cookie.Add(c);
             }
