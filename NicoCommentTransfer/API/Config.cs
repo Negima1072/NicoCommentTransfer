@@ -15,7 +15,8 @@ namespace NicoCommentTransfer.API
         public string[] okversion = new string[]
         {
             "1.4.0.0",
-            "1.4.0.1"
+            "1.4.0.1",
+            "1.4.1.0"
         };
         [JsonProperty("version")]
         public string version { get; set; }

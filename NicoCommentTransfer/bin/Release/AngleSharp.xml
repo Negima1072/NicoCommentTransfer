@@ -2143,10 +2143,20 @@
             by commas.
             </summary>
         </member>
+        <member name="M:AngleSharp.Css.Dom.NamespaceSelector.#ctor(System.String)">
+            <summary>
+            </summary>
+            <param name="prefix">The escaped prefix text</param>
+        </member>
         <member name="T:AngleSharp.Css.Dom.Selectors">
             <summary>
             A list of selectors, which is the basis for CompoundSelector and
             SelectorGroup.
+            </summary>
+        </member>
+        <member name="P:AngleSharp.Css.Dom.TypeSelector.TypeName">
+            <summary>
+            Gets the raw type name value
             </summary>
         </member>
         <member name="T:AngleSharp.Css.Dom.ISelector">
@@ -2473,6 +2483,11 @@
         <member name="T:AngleSharp.Css.Parser.CssSelectorConstructor.State">
             <summary>
             The various parsing states.
+            </summary>
+        </member>
+        <member name="T:AngleSharp.Css.Parser.CssSelectorConstructor.BaseMatchingFunctionState">
+            <summary>
+            Base implementation for :matches(), :is(), :where().
             </summary>
         </member>
         <member name="T:AngleSharp.Css.Parser.CssSelectorParser">
@@ -3083,6 +3098,11 @@
             The has pseudo function.
             </summary>
         </member>
+        <member name="F:AngleSharp.Css.PseudoClassNames.Is">
+            <summary>
+            The matches pseudo function.
+            </summary>
+        </member>
         <member name="F:AngleSharp.Css.PseudoClassNames.Matches">
             <summary>
             The matches pseudo function.
@@ -3129,6 +3149,11 @@
             </summary>
         </member>
         <member name="F:AngleSharp.Css.PseudoClassNames.Contains">
+            <summary>
+            The contains pseudo function.
+            </summary>
+        </member>
+        <member name="F:AngleSharp.Css.PseudoClassNames.Where">
             <summary>
             The contains pseudo function.
             </summary>
@@ -5728,6 +5753,12 @@
             Creates a new event.
             </summary>
         </member>
+        <member name="M:AngleSharp.Dom.Events.Event.#ctor(System.String)">
+            <summary>
+            Creates a new event and initializes it.
+            </summary>
+            <param name="type">The type of the event.</param>
+        </member>
         <member name="M:AngleSharp.Dom.Events.Event.#ctor(System.String,System.Boolean,System.Boolean)">
             <summary>
             Creates a new event and initializes it.
@@ -5735,6 +5766,15 @@
             <param name="type">The type of the event.</param>
             <param name="bubbles">If the event is bubbling.</param>
             <param name="cancelable">If the event is cancelable.</param>
+        </member>
+        <member name="M:AngleSharp.Dom.Events.Event.#ctor(System.String,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Creates a new event and initializes it.
+            </summary>
+            <param name="type">The type of the event.</param>
+            <param name="bubbles">If the event is bubbling.</param>
+            <param name="cancelable">If the event is cancelable.</param>
+            <param name="composed">If the event is composable.</param>
         </member>
         <member name="P:AngleSharp.Dom.Events.Event.Flags">
             <summary>
@@ -5761,6 +5801,11 @@
             Gets the phase of the event.
             </summary>
         </member>
+        <member name="P:AngleSharp.Dom.Events.Event.IsComposed">
+            <summary>
+            Gets if the event is propagating across the shadow DOM boundary into the standard DOM.
+            </summary>
+        </member>
         <member name="P:AngleSharp.Dom.Events.Event.IsBubbling">
             <summary>
             Gets if the event is actually bubbling.
@@ -5784,6 +5829,12 @@
         <member name="P:AngleSharp.Dom.Events.Event.Time">
             <summary>
             Gets the originating timestamp.
+            </summary>
+        </member>
+        <member name="M:AngleSharp.Dom.Events.Event.GetComposedPath">
+            <summary>
+            Returns the event's path which is an array of the objects on which listeners will be invoked.
+            See https://dom.spec.whatwg.org/#dom-event-composedpath.
             </summary>
         </member>
         <member name="M:AngleSharp.Dom.Events.Event.Stop">
@@ -5812,7 +5863,7 @@
         <member name="M:AngleSharp.Dom.Events.Event.Dispatch(AngleSharp.Dom.IEventTarget)">
             <summary>
             Dispatch the event as described in the specification.
-            http://www.w3.org/TR/DOM-Level-3-Events/
+            https://dom.spec.whatwg.org/#dispatching-events
             </summary>
             <param name="target">The target of the event.</param>
             <returns>A boolean if the event has been cancelled.</returns>
@@ -7507,6 +7558,12 @@
         <member name="P:AngleSharp.Dom.IElement.NamespaceUri">
             <summary>
             Gets the namespace URI of this element.
+            </summary>
+        </member>
+        <member name="P:AngleSharp.Dom.IElement.GivenNamespaceUri">
+            <summary>
+            Gets the given namespace URI of this element.
+            This one will not be resolved via its parent, but only yields the provided namespace, if any.
             </summary>
         </member>
         <member name="P:AngleSharp.Dom.IElement.Attributes">
@@ -9225,6 +9282,9 @@
         <member name="P:AngleSharp.Dom.Element.NamespaceUri">
             <inheritdoc />
         </member>
+        <member name="P:AngleSharp.Dom.Element.GivenNamespaceUri">
+            <inheritdoc />
+        </member>
         <member name="P:AngleSharp.Dom.Element.TextContent">
             <inheritdoc />
         </member>
@@ -9556,6 +9616,11 @@
         </member>
         <member name="P:AngleSharp.Dom.Node.NodeName">
             <inheritdoc />
+        </member>
+        <member name="M:AngleSharp.Dom.Node.ReplacedAll">
+            <summary>
+            Called when ReplaceAll was run.
+            </summary>
         </member>
         <member name="M:AngleSharp.Dom.Node.Clone(AngleSharp.Dom.Document,System.Boolean)">
             <summary>
@@ -10290,6 +10355,11 @@
         <member name="P:AngleSharp.Dom.IShadowRoot.InnerHtml">
             <summary>
             Gets the markup of the current shadow root's contents.
+            </summary>
+        </member>
+        <member name="P:AngleSharp.Dom.IShadowRoot.Mode">
+            <summary>
+            Gets the mode of this shadow root.
             </summary>
         </member>
         <member name="P:AngleSharp.Dom.IShadowRoot.StyleSheets">
