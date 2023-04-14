@@ -425,7 +425,7 @@ namespace NicoCommentTransfer
                 config.CookieExpires = login.expiresunixtime;
                 config.userID = login.userid;
                 config.isPremium = login.isPremium;
-                config.authToken = login.auth_token;
+                //config.authToken = login.auth_token;
                 client.LoginCookie(login.user_session, login.user_session_secure);
                 MessageBox.Show("ログインしました。", "Login", MessageBoxButton.OK, MessageBoxImage.Information);
                 LoginAtoShitaniUtusuShori();
@@ -434,7 +434,7 @@ namespace NicoCommentTransfer
             {
                 config = new Config(config);
                 MessageBox.Show("ログインできませんでした。113", "Login", MessageBoxButton.OK, MessageBoxImage.Stop);
-                this.Close();
+                //this.Close();
             }
         }
 
